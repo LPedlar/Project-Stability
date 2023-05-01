@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'JobSearch',
         'USER': 'postgres',
         'PASSWORD': 'Firefly404',
-        'HOST': 'localhost',
+        'HOST': '174.126.12.200',
         'PORT': '5432',
     }
 }
