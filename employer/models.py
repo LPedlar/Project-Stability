@@ -8,6 +8,8 @@ class Employer(models.Model):
     Industry = models.CharField(max_length=255, blank=True, null=True)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+    def __str__(self):
+        return self.CompanyName
 
 class Job(models.Model):
     JobID = models.AutoField(primary_key=True)
@@ -17,6 +19,8 @@ class Job(models.Model):
     Location = models.CharField(max_length=255, blank=True, null=True)
     DatePosted = models.DateField()
     EmployerID = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.JobTitle
 
 class Applicant(models.Model):
     ApplicantID = models.AutoField(primary_key=True)
@@ -24,10 +28,14 @@ class Applicant(models.Model):
     LastName = models.CharField(max_length=255)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+    def __str__(self):
+        return f"{self.FirstName} {self.LastName}"
 
 class ApplicationStatus(models.Model):
     StatusID = models.AutoField(primary_key=True)
     StatusName = models.CharField(max_length=255)
+    def __str__(self):
+        return self.StatusName
 
 class Application(models.Model):
     ApplicationID = models.AutoField(primary_key=True)
@@ -35,6 +43,8 @@ class Application(models.Model):
     JobID = models.ForeignKey(Job, on_delete=models.CASCADE)
     DateApplied = models.DateField()
     StatusID = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.ApplicantID} applied for {self.JobID} on {self.DateApplied}"
 
 # class Course(models.Model):
 #     course_id = models.AutoField(primary_key=True)
