@@ -78,14 +78,11 @@ WSGI_APPLICATION = 'ProjectStability.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'JobSearch',
-        'USER': 'postgres',
-        'PASSWORD': 'Firefly404',
-        'HOST': '174.126.12.200',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
