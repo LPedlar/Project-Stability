@@ -1,12 +1,29 @@
+<!-- This is the base template that all other templates will inherit from. 
+It should include the basic structure of your website, such as the header, navigation bar, and footer. -->
+
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-	<h1>Welcome to the Job Board!</h1>
-	<p>Are you a job seeker or an employer?</p>
-	<a href="{% url 'ProjectStability:candidate_signup' %}"><button>Sign up as a candidate</button></a>
-	<a href="{% url 'ProjectStability:employer_signup' %}"><button>Sign up as an employer</button></a>
-</body>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Any other CSS or JS includes go here -->
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'candidates:index' %}">Candidates</a></li>
+        <!-- Include any other links for your navigation bar -->
+      </ul>
+    </nav>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      <!-- Include your footer information here -->
+    </footer>
+  </body>
 </html>
