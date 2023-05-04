@@ -21,8 +21,8 @@ urlpatterns = [
     path('employer_profile/', views.employer_profile, name='profile'),
     path('jobs/', views.job_list, name='job_list'),
     path('job_post/', views.job_post, name='job_post'),
-    path('signup/', views.employer_signup, name='employer_signup'),
-    #path('signup/', employer_views.employer_signup, name='employer_signup'),
+    #path('signup/', views.employer_signup, name='employer_signup'),
+    path('signup/', employer_views.employer_signup, name='employer_signup'),
     path('employer_home/', views.employer_home, name='employer_home'),
     # other paths for employer app views
 ]

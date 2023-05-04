@@ -22,7 +22,7 @@ class EmployerSignUpView(CreateView):
         # save the employer form
         response = super().form_valid(form)
         # redirect to the employer home page
-        return redirect('employer_home')
+        return redirect('employer/employer_home')
 
 
 def employer_signup(request):
@@ -31,7 +31,7 @@ def employer_signup(request):
         if form.is_valid():
             form.save()
             # Redirect to employer home page after successful sign-up
-            return redirect('employer_home')
+            return redirect('../employer_home')
     else:
         form = EmployerForm()
     return render(request, 'employer/employer_signup.html', {'form': form})
@@ -48,7 +48,7 @@ def employer_home(request):
     print("Home view called") # Add this line
     employers = Employer.objects.all()
     context = {'employers': employers}
-    return render(request, 'employer_home.html', context)
+    return render(request, 'employer/employer_home.html', context)
 
 def employer_profile(request, employer_id):
     employer = Employer.objects.get(id=employer_id)
