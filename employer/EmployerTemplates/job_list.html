@@ -1,0 +1,31 @@
+<!-- This template will display a list of all the available jobs on your website. 
+Each job should be displayed with its title, description, and other relevant details. -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Job Listings</h1>
+
+{% if jobs %}
+<ul>
+  {% for job in jobs %}
+  <li>
+    <h2>{{ job.JobTitle }}</h2>
+    <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
+    <p>{{ job.JobDescription }}</p>
+    <p>Salary: {{ job.Salary }}</p>
+    <p>Location: {{ job.Location }}</p>
+    <p>Date Posted: {{ job.DatePosted }}</p>
+    <form method="post" action="{% url 'apply' job_id=job.JobID %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No jobs found.</p>
+{% endif %}
+
+{% endblock %}
+

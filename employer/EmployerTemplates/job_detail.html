@@ -1,0 +1,14 @@
+<!-- This template will display the details of a specific job, 
+including its title, description, salary, location, and the name of the employer who posted it. -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>{{ job.JobTitle }}</h2>
+  <p><strong>Description:</strong> {{ job.JobDescription }}</p>
+  <p><strong>Salary:</strong> {{ job.Salary }}</p>
+  <p><strong>Location:</strong> {{ job.Location }}</p>
+  <p><strong>Employer:</strong> {{ job.EmployerID.CompanyName }}</p>
+
+{% endblock %}

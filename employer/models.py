@@ -32,10 +32,22 @@ class Applicant(models.Model):
         return f"{self.FirstName} {self.LastName}"
 
 class ApplicationStatus(models.Model):
-    StatusID = models.AutoField(primary_key=True)
-    StatusName = models.CharField(max_length=255)
+    INTERESTED = 'Interested'
+    IN_REVIEW = 'In Review'
+    ACCEPTED = 'Accepted'
+    DORMANT = 'Dormant'
+    DECLINED = 'Declined'
+    STATUS_CHOICES = [
+        (INTERESTED, 'Interested'),
+        (IN_REVIEW, 'In Review'),
+        (ACCEPTED, 'Accepted'),
+        (DORMANT, 'Dormant'),
+        (DECLINED, 'Declined'),
+    ]
+    StatusName = models.CharField(max_length=255, choices=STATUS_CHOICES)
     def __str__(self):
         return self.StatusName
+
 
 class Application(models.Model):
     ApplicationID = models.AutoField(primary_key=True)
@@ -45,23 +57,3 @@ class Application(models.Model):
     StatusID = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.ApplicantID} applied for {self.JobID} on {self.DateApplied}"
-
-# class Course(models.Model):
-#     course_id = models.AutoField(primary_key=True)
-#     course_title = models.CharField(max_length=100)
-#     course_description = models.TextField()
-#     credits = models.IntegerField()
-#     instructor = models.CharField(max_length=100)
-#     start_date = models.DateField(default = date(2022,1,1))
-    
-#     def __str__(self):
-#         return self.course_title
-
-
-class JobPost(models.Model):
-    job_id = models.AutoField(primary_key = True)
-    job_title  = models.CharField(max_length=100)
-    job_description = models.TextField()
-    
-    def __str__(self):
-         return self.job_title

@@ -26,8 +26,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from candidate import views
+from django.urls import path
+from employer import views
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import TemplateView
+from candidate import views as candidate_views
+from employer import views as employer_views
+from candidate.views import CandidateSignUpView
+from employer.views import EmployerSignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index,name='index'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('candidate_signup/', candidate_views.candidate_signup, name='candidate_signup'),
+    path('employer_signup/', employer_views.employer_signup, name='employer_signup'),
+    # path('candidate/signup/', CandidateSignUpView.as_view(), name='candidate_signup'),
+    # path('employer/signup/', EmployerSignUpView.as_view(), name='employer_signup'),
+    path('', include('candidate.urls')),  # include candidate app URLs
+    path('', include('employer.urls')),  # include employer app URLs
 ]
+
