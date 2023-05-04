@@ -25,17 +25,16 @@ class EmployerSignUpView(CreateView):
         return redirect('employer_home')
 
 
-
 def employer_signup(request):
     if request.method == 'POST':
         form = EmployerForm(request.POST)
         if form.is_valid():
             form.save()
             # Redirect to employer home page after successful sign-up
-            return redirect('../employer_home')
+            return redirect('employer_home')
     else:
         form = EmployerForm()
-    return render(request, 'employer_signup.html', {'form': form})
+    return render(request, 'employer/employer_signup.html', {'form': form})
 
 def job_list(request):
     jobs = Job.objects.all()

@@ -3,12 +3,15 @@ as well as links to other pages. -->
 
 {% extends "base.html" %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 {% block content %}
   <h1>Welcome to our Job Board Website!</h1>
   <p>Our website connects employers with job seekers, making the hiring process easier for both parties.</p>
   <p>Whether you're an employer looking to post a job or a job seeker searching for a new opportunity, we're here to help.</p>
   <h2>Get Started</h2>
   <p>Click one of the buttons below to sign up as an employer or a candidate.</p>
-  <a href="{% url 'employer_signup' %}" class="btn btn-success">Sign Up as an Employer</a>
-  <a href="{% url 'candidate_signup' %}" class="btn btn-primary">Sign Up as a Candidate</a>
+  <a href="{% url 'employer:employer_signup' %}" class="btn btn-success">Sign Up as an Employer</a>
+  <a href="{% url 'candidate:candidate_signup' %}" class="btn btn-primary">Sign Up as a Candidate</a>
 {% endblock %}

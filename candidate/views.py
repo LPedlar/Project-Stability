@@ -22,7 +22,7 @@ def candidate_signup(request):
         if form.is_valid():
             form.save()
             # Redirect to candidate home page after successful sign-up
-            return redirect('../candidate_home')
+            return redirect('candidate_home')
     else:
         form = ApplicantForm()
     return render(request, 'candidate_signup.html', {'form': form})
@@ -32,7 +32,7 @@ def candidate_home(request):
     if request.user.is_authenticated and request.user.is_candidate:
         Applicant = Applicant.objects.get(user=request.user)
     context = {'Applicant': Applicant}
-    return render(request, 'candidate/CandidateTemplates/candidate_home.html', context)
+    return render(request, 'candidate_home.html', context)
 
 def candidate_profile(request, candidate_id):
     Applicant = Applicant.objects.get(id=candidate_id)
