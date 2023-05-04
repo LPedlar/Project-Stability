@@ -39,7 +39,7 @@ def employer_signup(request):
 def job_list(request):
     jobs = Job.objects.all()
     context = {'jobs': jobs}
-    return render(request, 'job_list.html', context)
+    return render(request, 'employer/job_list.html', context)
 
 def index(request):
     return render(request, 'index.html')
@@ -53,7 +53,7 @@ def employer_home(request):
 def employer_profile(request, employer_id):
     employer = Employer.objects.get(id=employer_id)
     context = {'employers': employer}
-    return render(request, 'employer_profile.html', context)
+    return render(request, 'employer/employer_profile.html', context)
 
 def job_post(request):
     if request.method == 'POST':
@@ -63,6 +63,6 @@ def job_post(request):
             return redirect('job_list')
     else:
         form = JobForm()
-    return render(request, 'job_post.html', {'form': form})
+    return render(request, 'employer/job_post.html', {'form': form})
 
 

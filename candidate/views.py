@@ -14,7 +14,7 @@ class CandidateSignUpView(CreateView):
 
     def form_valid(self, form):
         # save the candidate form and redirect to the candidate home page
-        return redirect('candidate_home')
+        return redirect('candidate/candidate_home')
 
 def candidate_signup(request):
     if request.method == 'POST':
@@ -37,4 +37,4 @@ def candidate_home(request):
 def candidate_profile(request, candidate_id):
     Applicant = Applicant.objects.get(id=candidate_id)
     context = {'Applicant': Applicant}
-    return render(request, 'candidate_profile.html', context)
+    return render(request, 'candidate/candidate_profile.html', context)
