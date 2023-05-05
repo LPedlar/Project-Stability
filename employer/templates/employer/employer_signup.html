@@ -22,9 +22,13 @@
   </body>
 </html>
 
-<h2>Sign up as an employer</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Sign up</button>
-</form>
+  <h2>Sign up as an employer</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+  
+  <p>Already have an account?</p>
+  <a href="{% url 'employer:employer_signin' %}"><button>Sign in</button></a>
 {% endblock %}

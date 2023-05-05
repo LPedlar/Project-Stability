@@ -8,6 +8,9 @@ class Employer(models.Model):
     Industry = models.CharField(max_length=255, blank=True, null=True)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+    is_employer = models.BooleanField(default=True)
+    last_login = models.DateTimeField(blank=True, null=True)
+    
     def __str__(self):
         return self.CompanyName
 
@@ -44,7 +47,9 @@ class ApplicationStatus(models.Model):
         (DORMANT, 'Dormant'),
         (DECLINED, 'Declined'),
     ]
+    id = models.AutoField(primary_key=True)
     StatusName = models.CharField(max_length=255, choices=STATUS_CHOICES)
+
     def __str__(self):
         return self.StatusName
 

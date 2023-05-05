@@ -13,6 +13,23 @@ from django.db import transaction
 from django import forms
 from django.db import transaction
 from .models import Employer, Applicant
+from django import forms
+from django.contrib.auth import authenticate
+
+class EmployerSignInForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        if email and password:
+            user = authenticate(email=email, password=password, backend='ProjectStability.backends.EmployerAuthBackend')
+            if not user:
+                raise forms.ValidationError('Invalid email or password')
+        return cleaned_data
 
 class EmployerSignUpForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)

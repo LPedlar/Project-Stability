@@ -31,20 +31,12 @@ from employer import views
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from candidate import views as candidate_views
-from employer import views as employer_views
-from candidate.views import CandidateSignUpView
-from employer.views import EmployerSignUpView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    # path('candidate_signup/', candidate_views.candidate_signup, name='candidate_signup'),
-    # path('employer_signup/', employer_views.employer_signup, name='employer_signup'),
-    # path('candidate/signup/', CandidateSignUpView.as_view(), name='candidate_signup'),
-    # path('employer/signup/', EmployerSignUpView.as_view(), name='employer_signup'),
     path('candidate/', include('candidate.urls')),  # include candidate app URLs
     path('employer/', include('employer.urls')),  # include employer app URLs
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

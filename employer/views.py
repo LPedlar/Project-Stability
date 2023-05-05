@@ -12,18 +12,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from .models import Employer
 from .forms import EmployerSignUpForm
-
-class EmployerSignUpView(CreateView):
-    model = Employer
-    form_class = EmployerSignUpForm
-    template_name = 'EmployerTemplates/employer_signup.html'
-
-    def form_valid(self, form):
-        # save the employer form
-        response = super().form_valid(form)
-        # redirect to the employer home page
-        return redirect('employer/employer_home')
-
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from .forms import EmployerSignInForm
+from ProjectStability.backends import EmployerAuthBackend
 
 def employer_signup(request):
     if request.method == 'POST':
@@ -64,5 +56,23 @@ def job_post(request):
     else:
         form = JobForm()
     return render(request, 'employer/job_post.html', {'form': form})
+
+def employer_signin(request):
+    if request.method == 'POST':
+        form = EmployerSignInForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, email=email, password=password, backend='ProjectStability.backends.EmployerAuthBackend')
+            if user is not None and user.is_employer:
+                login(request, user)
+                return redirect('../employer_home')
+            else:
+                form.add_error('email', 'Invalid email or password.')
+    else:
+        form = EmployerSignInForm()
+    return render(request, 'employer/employer_signin.html', {'form': form})
+
+
 
 
