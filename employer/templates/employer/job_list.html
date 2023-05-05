@@ -1,8 +1,7 @@
 <!-- This template will display a list of all the available jobs on your website. 
 Each job should be displayed with its title, description, and other relevant details. -->
 
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <h1>Job Listings</h1>
 
@@ -16,16 +15,16 @@ Each job should be displayed with its title, description, and other relevant det
     <p>Salary: {{ job.Salary }}</p>
     <p>Location: {{ job.Location }}</p>
     <p>Date Posted: {{ job.DatePosted }}</p>
+    {% comment %}
     <form method="post" action="{% url 'apply' job_id=job.JobID %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-primary">Apply</button>
     </form>
+    **I commented this out because apply url has not yet been established.**
+    {%endcomment%}
   </li>
   {% endfor %}
 </ul>
 {% else %}
 <p>No jobs found.</p>
-{% endif %}
-
-{% endblock %}
-
+{% endif %} {% endblock %}

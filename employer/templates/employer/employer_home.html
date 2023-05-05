@@ -1,6 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<h1>Employer Home Page</h1>
+<p>
+  Welcome to the employer home page. You are logged in as {{
+  request.user.username }}.
+</p>
+<a href="{% url 'employer:job_list' %}" class="btn btn-primary">My Positions</a>
+<a href="{% url 'employer:job_post' %}" class="btn btn-primary"
+  >Post a Position</a
+>
 
-{% block content %}
-  <h1>Employer Home Page</h1>
-  <p>Welcome to the employer home page. You are logged in as {{ request.user.username }}.</p>
 {% endblock %}
