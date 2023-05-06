@@ -31,6 +31,7 @@ class Applicant(models.Model):
     LastName = models.CharField(max_length=255)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+    last_login = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.FirstName} {self.LastName}"
