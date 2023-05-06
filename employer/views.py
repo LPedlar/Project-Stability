@@ -6,6 +6,17 @@ from django.views.generic import CreateView
 from django.contrib.auth import authenticate, login
 from ProjectStability.backends import EmployerAuthBackend
 
+class EmployerSignUpView(CreateView):
+    model = Employer
+    form_class = EmployerSignUpForm
+    template_name = 'employer/employer_signup.html'
+
+    def form_valid(self, form):
+        # save the candidate form and redirect to the candidate home page
+        employer = form.save()
+        login(self.request, employer, backend='ProjectStability.backends.EmployerAuthBackend')
+        return redirect('../employer_home')
+
 def employer_signup(request):
     if request.method == 'POST':
         form = EmployerSignUpForm(request.POST)

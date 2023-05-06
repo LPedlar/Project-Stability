@@ -39,7 +39,7 @@ class EmployerSignUpForm(forms.ModelForm):
     @transaction.atomic
     def save(self, commit=True):
         employer = super().save(commit=False)
-        employer.set_password(self.cleaned_data.get('password1'))
+        employer.Password = make_password(self.cleaned_data.get('password1'))
         if commit:
             employer.save()
         return employer

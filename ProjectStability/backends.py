@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import BaseBackend
 from employer.models import Employer, Applicant
 import pdb;
+from django.contrib.auth.hashers import check_password
 
 class ApplicantAuthBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
@@ -9,7 +10,7 @@ class ApplicantAuthBackend(BaseBackend):
         except Applicant.DoesNotExist:
             return None
 
-        if applicant.Password == password:
+        if check_password(password, applicant.Password):
             return applicant
         else:
             return None
@@ -25,9 +26,12 @@ class EmployerAuthBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
         try:
             employer = Employer.objects.get(Email=email)
-            if employer.Password == password:
-                return employer
         except Employer.DoesNotExist:
+            return None
+
+        if check_password(password, employer.Password):
+            return employer
+        else:
             return None
 
     def get_user(self, user_id):

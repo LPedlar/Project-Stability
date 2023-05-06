@@ -7,14 +7,14 @@ from django.contrib.auth.decorators import login_required
 
 class CandidateSignUpView(CreateView):
     model = Applicant
-    form_class = ApplicantForm
-    template_name = 'CandidateTemplates/candidate_signup.html'
+    form_class = CandidateSignUpForm
+    template_name = 'candidate/candidate_signup.html'
 
     def form_valid(self, form):
         # save the candidate form and redirect to the candidate home page
         applicant = form.save()
         login(self.request, applicant, backend='ProjectStability.backends.ApplicantAuthBackend')
-        return redirect('candidate_home')
+        return redirect('../candidate_home')
 
 @login_required
 def candidate_home(request):
