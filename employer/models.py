@@ -31,8 +31,15 @@ class Applicant(models.Model):
     LastName = models.CharField(max_length=255)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+
     def __str__(self):
         return f"{self.FirstName} {self.LastName}"
+
+    def is_authenticated(self):
+        """
+        Return True if the user is authenticated, False otherwise.
+        """
+        return True
 
 class ApplicationStatus(models.Model):
     INTERESTED = 'Interested'

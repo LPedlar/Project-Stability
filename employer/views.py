@@ -1,31 +1,20 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Employer, Job
-from .forms import JobForm, EmployerForm
-from django.shortcuts import render, redirect
+from .forms import JobForm, EmployerForm, EmployerSignInForm, EmployerSignUpForm
 from django.views.generic import CreateView
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from .models import Employer
-from .forms import EmployerSignUpForm
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from .models import Employer
-from .forms import EmployerSignUpForm
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from .forms import EmployerSignInForm
 from ProjectStability.backends import EmployerAuthBackend
 
 def employer_signup(request):
     if request.method == 'POST':
-        form = EmployerForm(request.POST)
+        form = EmployerSignUpForm(request.POST)
         if form.is_valid():
             form.save()
             # Redirect to employer home page after successful sign-up
             return redirect('../employer_home')
     else:
-        form = EmployerForm()
+        form = EmployerSignUpForm()
     return render(request, 'employer/employer_signup.html', {'form': form})
 
 def job_list(request):
@@ -52,7 +41,7 @@ def job_post(request):
         form = JobForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('job_list')
+            return redirect('../job_list')
     else:
         form = JobForm()
     return render(request, 'employer/job_post.html', {'form': form})

@@ -23,9 +23,14 @@
 </html>
 
 {% block content %}
+<header>Return to Home</header>
+<a href="{% url 'home' %}"><button>Home</button></a>
 <h2>Sign up as a candidate</h2>
 <form method="post">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit" class="btn btn-primary">Sign up</button>
 </form>
+
+<p>Already have an account?</p>
+  <a href="{% url 'candidate:candidate_signin' %}"><button>Sign in</button></a>
 {% endblock %}

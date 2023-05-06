@@ -23,8 +23,9 @@
 </html>
 
 <h1>Applicant Home Page</h1>
-<p>
-  Welcome to the Applicant home page. You are logged in as {{
-  request.user.username }}.
-</p>
+<p>Welcome to the Applicant home page. 
+  {% if request.user.FirstName %}
+  You are logged in as {{ request.user.FirstName }}.
+  {% endif %}</p>
+  <a href="{% url 'candidate:candidate_profile' %}"><button>Profile</button></a>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <header>Return to Home</header>
 <a href="{% url 'home' %}"><button>Home</button></a>
-    <h1>Employer Sign In</h1>
+    <h1>Candidate Sign In</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -11,5 +11,5 @@
     </form>
 
     <p>Don't have an account?</p>
-  <a href="{% url 'employer:employer_signup' %}"><button>Sign up</button></a>
+  <a href="{% url 'candidate:candidate_signup' %}"><button>Sign up</button></a>
 {% endblock %}

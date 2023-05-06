@@ -1,11 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from employer.forms import ApplicantForm
-from django.shortcuts import render, redirect
-from django.shortcuts import render
+from employer.forms import ApplicantForm, CandidateSignUpForm, CandidateSignInForm
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView
 from employer.models import Applicant
-from employer.forms import CandidateSignUpForm
+from django.contrib.auth.decorators import login_required
 
 class CandidateSignUpView(CreateView):
     model = Applicant
@@ -14,27 +12,55 @@ class CandidateSignUpView(CreateView):
 
     def form_valid(self, form):
         # save the candidate form and redirect to the candidate home page
-        return redirect('candidate/candidate_home')
+        applicant = form.save()
+        login(self.request, applicant, backend='ProjectStability.backends.ApplicantAuthBackend')
+        return redirect('candidate_home')
+
+@login_required
+def candidate_home(request):
+    try:
+        applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+    except Applicant.DoesNotExist:
+        applicant = None
+    context = {'applicant': applicant}
+    return render(request, 'candidate/candidate_home.html', context)
+
+def candidate_profile(request):
+    applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+    context = {'applicant': applicant}
+    return render(request, 'candidate/candidate_profile.html', context)
 
 def candidate_signup(request):
     if request.method == 'POST':
-        form = ApplicantForm(request.POST)
+        form = CandidateSignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Redirect to candidate home page after successful sign-up
+            applicant = form.save()
+            login(request, applicant, backend='ProjectStability.backends.ApplicantAuthBackend')
+            # Redirect to candidate home page after successful sign-up and login
             return redirect('../candidate_home')
     else:
-        form = ApplicantForm()
+        form = CandidateSignUpForm()
     return render(request, 'candidate/candidate_signup.html', {'form': form})
 
-def candidate_home(request):
-    Applicant = None  # Define the variable before trying to access its attributes
-    if request.user.is_authenticated and request.user.is_candidate:
-        Applicant = Applicant.objects.get(user=request.user)
-    context = {'Applicant': Applicant}
-    return render(request, 'candidate/candidate_home.html', context)
+def candidate_signin(request):
+    if request.method == 'POST':
+        form = CandidateSignInForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, email=email, password=password, backend='ProjectStability.backends.ApplicantAuthBackend')
+            if user is not None and user.is_applicant:
+                login(request, user)
+                return redirect('../candidate_home')
+            else:
+                form.add_error('email', 'Invalid email or password.')
+    else:
+        form = CandidateSignInForm()
+    return render(request, 'candidate/candidate_signin.html', {'form': form})
 
-def candidate_profile(request, candidate_id):
-    Applicant = Applicant.objects.get(id=candidate_id)
-    context = {'Applicant': Applicant}
-    return render(request, 'candidate/candidate_profile.html', context)
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def candidate_logout(request):
+    logout(request)
+    return redirect('candidate:candidate_signin')

@@ -1,4 +1,4 @@
-{% comment %} Adding Bootstrap {% endcomment %}
+{% extends 'base.html' %} {% block content %} {% comment %} Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,3 +21,8 @@
     ></script>
   </body>
 </html>
+
+<h1>{% if request.user.FirstName %}
+    {{ request.user.FirstName }} {% endif %}'s Profile Page</h1>
+  <a href="{% url 'candidate:candidate_logout' %}"><button>Logout</button></a>
+{% endblock %}
