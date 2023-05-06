@@ -14,7 +14,7 @@ It should include the basic structure of your website, such as the header, navig
   <body>
     <header class="header">
       <nav class="nav" style="display: flex; justify-content: space-between; align-items: center;">
-        <div class="card1">
+        <div class="card1"> <!-- Employer Id Card -->
           <div class="card-body">
             {% if request.user.CompanyName %}
             <p>Company: {{ request.user.CompanyName }}</p>
@@ -24,9 +24,12 @@ It should include the basic structure of your website, such as the header, navig
             {% endif %}
           </div>
         </div>
+      </nav>
         <ul>
-          <li><a href="{% url 'employer:employer_home' %}" class="btn btn-primary">Home</a></li>
-          <!-- Include any other links for your navigation bar -->
+          <li style="display: inline-block;"><a href="{% url 'employer:employer_home' %}" class="btn btn-primary">Home</a></li>
+          <li style="display: inline-block;"><a href="{% url 'employer:job_list' %}" class="btn btn-secondary">My Positions</a></li>
+          <li style="display: inline-block;"><a href="{% url 'employer:job_post' %}" class="btn btn-secondary">Post a Position</a></li>
+          <li style="display: inline-block;"><a href="{% url 'employer:employer_profile'  %}" class="btn btn-success ml-4">Profile</a></li>
         </ul>
       </nav>
     </header>

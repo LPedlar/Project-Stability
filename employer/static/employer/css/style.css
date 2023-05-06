@@ -70,10 +70,14 @@ body {
       border: 2px solid #333 !important;
 }
 
+.header {
+  position: relative;
+}
+
 .card1 {
   background-color: seashell;
   max-width: fit-content;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   height: 100px;
@@ -83,7 +87,7 @@ body {
 
 .card1 p:first-child {
     border-bottom: 1px solid #333;
-  }
+}
 
 .card1 p {
   font-size: 25px;

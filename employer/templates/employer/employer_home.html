@@ -35,20 +35,30 @@
     font-size: 25px;
   }
 </style>
-<div class="text-center">
-  <h1>Employer Home Page</h1>
-  <p>
-    Welcome to the employer home page. {% if request.user.CompanyName %} You are
-    logged in as {{ request.user.CompanyName }}. {% endif %}
-  </p>
-  <a href="{% url 'employer:job_list' %}" class="btn btn-secondary"
-    >My Positions</a
-  >
-  <a href="{% url 'employer:job_post' %}" class="btn btn-secondary"
-    >Post a Position</a
-  >
-  <a href="{% url 'employer:employer_profile'  %}" class="btn btn-success ml-4"
-    >Profile</a
-  >
+<div class="container">
+  <div class="text-center">
+    <h1>Employer Home Page</h1>
+    <p>
+      Welcome to the employer home page. Thank you for using ProjectStability!
+    </p>
+  </div>
+  <div class="text-center">
+    <h1 class="h3 mt-8">What is an Employer?</h1>
+    <p>
+      An Employer is one of the two main profile types on this website. 
+      An Employer can make job listings and manage them, An Employer can also view applications 
+      made by Applicants, change the status of each application and more.
+    </p>
+  </div>
+  <div class="text-center">
+    <h1 class="h3 mt-8">How do I get started?</h1>
+    <p>
+      You can start by making a Job Listing, fill in the required information.
+      After that you can go to the Job Board and view all of your Listings.
+      Unlike Applicants, Employers can only view their own listings.
+      From there you can manage a listing which will allow you to manage the applications,
+      or delete the listing.
+    </p>
+  </div>
 </div>
 {% endblock %}
