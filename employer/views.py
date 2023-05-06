@@ -31,8 +31,8 @@ def employer_home(request):
     context = {'employers': employers}
     return render(request, 'employer/employer_home.html', context)
 
-def employer_profile(request, employer_id):
-    employer = Employer.objects.get(id=employer_id)
+def employer_profile(request):
+    employer = Employer.objects.get(EmployerID=request.user.EmployerID)
     context = {'employers': employer}
     return render(request, 'employer/employer_profile.html', context)
 
@@ -62,6 +62,11 @@ def employer_signin(request):
         form = EmployerSignInForm()
     return render(request, 'employer/employer_signin.html', {'form': form})
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
+def employer_logout(request):
+    logout(request)
+    return redirect('employer:employer_signin')
 
 

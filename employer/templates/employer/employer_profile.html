@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
-{% comment %} Adding Bootstrap {%endcomment %}
+{% extends 'base.html' %} {% block content %} {% comment %} Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,16 +22,7 @@
   </body>
 </html>
 
-<h1>Employer Home Page</h1>
-<p>
-  Welcome to the employer home page.
-  {% if request.user.CompanyName %}
-  You are logged in as {{ request.user.CompanyName }}.
-  {% endif %}
-</p>
-<a href="{% url 'employer:job_list' %}" class="btn btn-primary">My Positions</a>
-<a href="{% url 'employer:job_post' %}" class="btn btn-primary"
-  >Post a Position</a
->
-<a href="{% url 'employer:employer_profile' %}"><button>Profile</button></a>
+<h1>{% if request.user.CompanyName %}
+    {{ request.user.CompanyName }} {% endif %}'s Profile Page</h1>
+  <a href="{% url 'employer:employer_logout' %}"><button>Logout</button></a>
 {% endblock %}

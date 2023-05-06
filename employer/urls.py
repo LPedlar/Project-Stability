@@ -13,5 +13,7 @@ urlpatterns = [
     path('employer_profile/', views.employer_profile, name='profile'),
     path('job_post/', views.job_post, name='job_post'),
     path('job_list/', views.job_list, name='job_list'),
+    path('profile/', views.employer_profile, name='employer_profile'),
+    path('logout/', views.employer_logout, name='employer_logout'),
     # other paths for employer app views
 ]
