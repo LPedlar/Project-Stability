@@ -54,21 +54,27 @@ Each job should be displayed with its title, description, and other relevant det
   {% for job in jobs %}
   <style>
     #div1 {
-      font-size: 200%;
+      font-size: 150%;
       font-weight: bold;
     }
   </style>
-  <div class="card-header" id="div1">Job Title: {{ job.JobTitle }}</div>
+  <div class="container">
+    <div class="card-deck mt-4">
+      <div class="card-header" id="div1">Job Title: {{ job.JobTitle }}</div>
 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      Company Name: {{ job.EmployerID.CompanyName }}
-    </li>
-    <li class="list-group-item">Job Description: {{ job.JobDescription }}</li>
-    <li class="list-group-item">Starting Salary: {{ job.Salary }}</li>
-    <li class="list-group-item">Location: {{ job.Location }}</li>
-    <li class="list-group-item">Date Posted: {{ job.DatePosted }}</li>
-  </ul>
-  {% endfor %}
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Company Name: {{ job.EmployerID.CompanyName }}
+        </li>
+        <li class="list-group-item">
+          Job Description: {{ job.JobDescription }}
+        </li>
+        <li class="list-group-item">Starting Salary: {{ job.Salary }}</li>
+        <li class="list-group-item">Location: {{ job.Location }}</li>
+        <li class="list-group-item">Date Posted: {{ job.DatePosted }}</li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 {% endif %} {% endblock %}
