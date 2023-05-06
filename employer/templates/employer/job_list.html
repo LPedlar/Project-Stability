@@ -1,80 +1,75 @@
-<!-- This template will display a list of all the available jobs on your website. 
-Each job should be displayed with its title, description, and other relevant details. -->
+{% extends 'employer/employer_base.html' %}
 
-{% extends "base.html" %} {% block content %} {% comment %} Adding Bootstrap
-{%endcomment %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% block content %}
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+  {# Adding Bootstrap #}
+  {% comment %}
+  You should only include either the CSS or the JS CDN link in your base template,
+  but I'm including it here for the sake of completeness.
+  {% endcomment %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-<h1>Job Listings</h1>
+  {% if request.user.CompanyName %}
+    <h1>Job Listings for {{ request.user.CompanyName }}</h1>
 
-{% if jobs %}
-<ul>
-  {% for job in jobs %}
-  <li>
-    <h2>{{ job.JobTitle }}</h2>
-    <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
-    <p>{{ job.JobDescription }}</p>
-    <p>Salary: {{ job.Salary }}</p>
-    <p>Location: {{ job.Location }}</p>
-    <p>Date Posted: {{ job.DatePosted }}</p>
-    {% comment %}
-    <form method="post" action="{% url 'apply' job_id=job.JobID %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Apply</button>
-    </form>
-    **I commented this out because apply url has not yet been established.**
-    {%endcomment%}
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No jobs found.</p>
-{% endif %}{% comment %} Chris Styling Code {% endcomment %} {%if jobs %}
-<div class="card" style="width: 18rem">
-  {% for job in jobs %}
+    {% if jobs %}
+      <div class="row mx-5 my-5">
+        {% for job in jobs %}
+          {% if job.EmployerID == request.user %}
+            <div class="col-6 col-lg-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <h2 class="card-title">{{ job.JobTitle }}</h2>
+                    <a href="{% url 'employer:job_detail' job_id=job.JobID %}" class="btn btn-secondary">Position Details</a>
+                  </div>
+                  <div class="d-flex justify-content-around">
+                    <p class="card-text">{{ job.JobDescription }}</p>
+                    <div class="d-flex justify-content-center">
+                      <p class="card-text">Salary: {{ job.Salary }}</p>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-around">
+                    <p class="card-text">Location: {{ job.Location }}</p>
+                    <div class="d-flex justify-content-center">
+                      <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No jobs found.</p>
+    {% endif %}
+
+  {% else %}
+    <p>You must be logged in as an employer to view job listings.</p>
+  {% endif %}
+
+{% endblock %}
+
+{% block title %}Job List{% endblock %}
+
+{% block extrastyles %}
+  {# Adding the Home button styling #}
   <style>
-    #div1 {
-      font-size: 150%;
-      font-weight: bold;
-    }
-  </style>
-  <div class="container">
-    <div class="card-deck mt-4">
-      <div class="card-header" id="div1">Job Title: {{ job.JobTitle }}</div>
+    .btn-primary {
+  background-color: #000000;
+  color: #ff0000;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-decoration: none;
+}
 
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          Company Name: {{ job.EmployerID.CompanyName }}
-        </li>
-        <li class="list-group-item">
-          Job Description: {{ job.JobDescription }}
-        </li>
-        <li class="list-group-item">Starting Salary: {{ job.Salary }}</li>
-        <li class="list-group-item">Location: {{ job.Location }}</li>
-        <li class="list-group-item">Date Posted: {{ job.DatePosted }}</li>
-      </ul>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-{% endif %} {% endblock %}
+.btn-primary:hover {
+  background-color: #fff;
+  color: #333;
+}
+  </style>
+{% endblock %}

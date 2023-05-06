@@ -1,7 +1,8 @@
 <!-- This template will display the details of a specific job, 
 including its title, description, salary, location, and the name of the employer who posted it. -->
 
-{% extends 'base.html' %} {% comment %} Adding Bootstrap {% endcomment %}
+{% extends 'employer/employer_base.html' %}
+{% comment %} Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +28,12 @@ including its title, description, salary, location, and the name of the employer
 
 {% block content %}
 
-<h2>{{ job.JobTitle }}</h2>
-<p><strong>Description:</strong> {{ job.JobDescription }}</p>
-<p><strong>Salary:</strong> {{ job.Salary }}</p>
-<p><strong>Location:</strong> {{ job.Location }}</p>
-<p><strong>Employer:</strong> {{ job.EmployerID.CompanyName }}</p>
+<h1>{{ job.JobTitle }}</h1>
+<h4>Company: {{ job.EmployerID.CompanyName }}</h4>
+<p>{{ job.JobDescription }}</p>
+<p>Salary: {{ job.Salary }}</p>
+<p>Location: {{ job.Location }}</p>
+<p>Date Posted: {{ job.DatePosted }}</p>
+<a href="{% url 'employer:delete_job' job_id=job.JobID %}" class="btn btn-secondary">Delete Job</a>
 
 {% endblock %}

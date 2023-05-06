@@ -33,6 +33,24 @@ def job_list(request):
     context = {'jobs': jobs}
     return render(request, 'employer/job_list.html', context)
 
+from django.shortcuts import get_object_or_404
+from .models import Job
+
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    context = {'job': job}
+    return render(request, 'employer/job_detail.html', context)
+
+from django.shortcuts import redirect
+
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    if request.method == 'POST':
+        job.delete()
+        return redirect('employer:job_list')
+    context = {'job': job}
+    return render(request, 'employer/delete_job.html', context)
+
 def index(request):
     return render(request, 'index.html')
 

@@ -1,0 +1,80 @@
+<!-- This template will display a list of all the available jobs on your website. 
+Each job should be displayed with its title, description, and other relevant details. -->
+
+{% extends "base.html" %} {% block content %} {% comment %} Adding Bootstrap
+{%endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+<h1>Job Listings</h1>
+
+{% if jobs %}
+<ul>
+  {% for job in jobs %}
+  <li>
+    <h2>{{ job.JobTitle }}</h2>
+    <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
+    <p>{{ job.JobDescription }}</p>
+    <p>Salary: {{ job.Salary }}</p>
+    <p>Location: {{ job.Location }}</p>
+    <p>Date Posted: {{ job.DatePosted }}</p>
+    {% comment %}
+    <form method="post" action="{% url 'apply' job_id=job.JobID %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+    **I commented this out because apply url has not yet been established.**
+    {%endcomment%}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No jobs found.</p>
+{% endif %}{% comment %} Chris Styling Code {% endcomment %} {%if jobs %}
+<div class="card" style="width: 18rem">
+  {% for job in jobs %}
+  <style>
+    #div1 {
+      font-size: 150%;
+      font-weight: bold;
+    }
+  </style>
+  <div class="container">
+    <div class="card-deck mt-4">
+      <div class="card-header" id="div1">Job Title: {{ job.JobTitle }}</div>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Company Name: {{ job.EmployerID.CompanyName }}
+        </li>
+        <li class="list-group-item">
+          Job Description: {{ job.JobDescription }}
+        </li>
+        <li class="list-group-item">Starting Salary: {{ job.Salary }}</li>
+        <li class="list-group-item">Location: {{ job.Location }}</li>
+        <li class="list-group-item">Date Posted: {{ job.DatePosted }}</li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock %}
