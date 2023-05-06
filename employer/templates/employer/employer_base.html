@@ -13,7 +13,17 @@ It should include the basic structure of your website, such as the header, navig
   </head>
   <body>
     <header class="header">
-      <nav class="nav">
+      <nav class="nav" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="card1">
+          <div class="card-body">
+            {% if request.user.CompanyName %}
+            <p>Company: {{ request.user.CompanyName }}</p>
+            {% endif %}
+            {% if request.user.Industry %}
+            <p>Industry: {{ request.user.Industry }}</p>
+            {% endif %}
+          </div>
+        </div>
         <ul>
           <li><a href="{% url 'employer:employer_home' %}" class="btn btn-primary">Home</a></li>
           <!-- Include any other links for your navigation bar -->
