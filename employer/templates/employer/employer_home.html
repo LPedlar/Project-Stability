@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
-{% comment %} Adding Bootstrap {%endcomment %}
+{% extends 'base.html' %} {% block content %} {% comment %} Adding Bootstrap
+{%endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +13,8 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="../css/home.css" />
+    {% comment %} IMPORTANT ABOVE {% endcomment %}
   </head>
   <body>
     <script
@@ -24,16 +25,29 @@
   </body>
 </html>
 
-<h1>Employer Home Page</h1>
-<p>
-  Welcome to the employer home page.
-  {% if request.user.CompanyName %}
-  You are logged in as {{ request.user.CompanyName }}.
-  {% endif %}
-</p>
-<a href="{% url 'employer:job_list' %}" class="btn btn-primary">My Positions</a>
-<a href="{% url 'employer:job_post' %}" class="btn btn-primary"
-  >Post a Position</a
->
-<a href="{% url 'employer:employer_profile' %}"><button>Profile</button></a>
+{% comment %} CHRIS' INLINE STYLING {% endcomment %}
+<style>
+  h1 {
+    font-weight: 650;
+  }
+  p {
+    font-size: 25px;
+  }
+</style>
+<div class="text-center">
+  <h1>Employer Home Page</h1>
+  <p>
+    Welcome to the employer home page. {% if request.user.CompanyName %} You are
+    logged in as {{ request.user.CompanyName }}. {% endif %}
+  </p>
+  <a href="{% url 'employer:job_list' %}" class="btn btn-secondary"
+    >My Positions</a
+  >
+  <a href="{% url 'employer:job_post' %}" class="btn btn-secondary"
+    >Post a Position</a
+  >
+  <a href="{% url 'employer:employer_profile'  %}" class="btn btn-success ml-4"
+    >Profile</a
+  >
+</div>
 {% endblock %}
