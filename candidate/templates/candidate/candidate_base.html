@@ -8,21 +8,22 @@ It should include the basic structure of your website, such as the header, navig
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'candidate/css/style.css' %}">
     <!-- Any other CSS or JS includes go here -->
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a href="{% url 'ProjectStability:home' %}">Home</a></li>
-        <li><a href="{% url 'candidates:index' %}">Candidates</a></li>
-        <!-- Include any other links for your navigation bar -->
-      </ul>
-    </nav>
+    <header class="header">
+      <nav class="nav">
+        <ul>
+          <li><a href="{% url 'candidate:candidate_home' %}" class="btn btn-primary">Home</a></li>
+          <!-- Include any other links for your navigation bar -->
+        </ul>
+      </nav>
+    </header>
     <main>
       {% block content %}{% endblock %}
     </main>
-    <footer>
+    <footer class="footer">
       <!-- Include your footer information here -->
     </footer>
   </body>
