@@ -1,4 +1,4 @@
-{% extends 'employer/employer_base.html' %}
+{% extends 'employer/employer_base.html' %} {% block content %}
 {% comment %} Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
@@ -23,7 +23,6 @@
   </body>
 </html>
 
-{% block content %}
 <h1>Post a Job</h1>
 <form method="POST">
   {% csrf_token %} {{ form.as_p }}

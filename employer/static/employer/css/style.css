@@ -39,7 +39,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #000000;
+  background-color: #000000 !important;
   color: #ff0000;
   border-radius: 0;
   font-size: 16px;
@@ -49,7 +49,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #fff;
+  background-color: #fff !important;
   color: #333;
 }
 
@@ -63,4 +63,9 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.card {
+      background-color: rgb(212, 212, 212) !important;
+      border: 2px solid #333 !important;
 }
