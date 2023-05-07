@@ -27,16 +27,18 @@ from django.contrib import admin
 from django.urls import path
 from candidate import views
 from django.urls import path
-from employer import views
+from employer.views import HomeView
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
+app_name = 'ProjectStability'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('candidate/', include('candidate.urls')),  # include candidate app URLs
     path('employer/', include('employer.urls')),  # include employer app URLs
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

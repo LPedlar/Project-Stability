@@ -5,6 +5,11 @@ from .forms import JobForm, EmployerForm, EmployerSignInForm, EmployerSignUpForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate, login
 from ProjectStability.backends import EmployerAuthBackend
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+
+class HomeView(TemplateView):
+    template_name = 'ProjectStability/home.html'
 
 class EmployerSignUpView(CreateView):
     model = Employer
@@ -65,11 +70,14 @@ def employer_profile(request):
     context = {'employers': employer}
     return render(request, 'employer/employer_profile.html', context)
 
+@login_required
 def job_post(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save()
+            job = form.save(commit=False)
+            job.EmployerID = Employer.objects.get(EmployerID=request.user.EmployerID)
+            job.save()
             return redirect('../job_list')
     else:
         form = JobForm()

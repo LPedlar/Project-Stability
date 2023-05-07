@@ -32,6 +32,7 @@ including its title, description, salary, location, and the name of the employer
 <p>Salary: {{ job.Salary }}</p>
 <p>Location: {{ job.Location }}</p>
 <p>Date Posted: {{ job.DatePosted }}</p>
-<a href="{% url 'employer:delete_job' job_id=job.JobID %}" class="btn btn-secondary">Delete Job</a>
+<li style="display: inline-block;"><a href="{% url 'employer:delete_job' job_id=job.JobID %}" class="btn btn-secondary">Delete Job</a></li>
+<li style="display: inline-block;"><a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a></li>
 
 {% endblock %}

@@ -13,6 +13,10 @@ class Employer(models.Model):
     
     def __str__(self):
         return self.CompanyName
+    
+    def is_authenticated(self):
+        return True
+
 
 class Job(models.Model):
     JobID = models.AutoField(primary_key=True)

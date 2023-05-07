@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% comment %} Adding Bootstrap {% endcomment %}
-
+{% extends 'ProjectStability/base.html' %} {% comment %} Adding Bootstrap {% endcomment %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,7 +22,6 @@
   </body>
 </html>
 
-{% block content %}
 <header>Return to Home</header>
 <a href="{% url 'home' %}"><button>Home</button></a>
 <h2>Sign up as a candidate</h2>

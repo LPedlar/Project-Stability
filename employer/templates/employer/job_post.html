@@ -23,9 +23,13 @@
   </body>
 </html>
 
-<h1>Post a Job</h1>
-<form method="POST">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+<div style="display:flex; justify-content:center; align-items:center; height:75vh;">
+  <div style="text-align:center;">
+    <h1>Post a Job</h1>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

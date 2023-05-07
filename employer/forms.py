@@ -103,4 +103,7 @@ class ApplicantForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['JobTitle', 'JobDescription', 'Salary', 'Location', 'DatePosted', 'EmployerID']
+        fields = ['JobTitle', 'JobDescription', 'Salary', 'Location', 'DatePosted']
+        widgets = {
+            'EmployerID': forms.HiddenInput(),
+        }

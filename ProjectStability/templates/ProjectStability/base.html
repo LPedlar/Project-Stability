@@ -1,0 +1,39 @@
+<!-- This is the base template that all other templates will inherit from. 
+It should include the basic structure of your website, such as the header, navigation bar, and footer. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ProjectStability/css/style.css' %}">
+    <!-- Any other CSS or JS includes go here -->
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="card1"> <!-- Employer Id Card -->
+          <div class="card-body">
+            <p>Sign In!</p>
+            <p>Sign Up!</p>
+          </div>
+        </div>
+      </nav>
+        <ul>
+          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-primary">Home</a></li>
+          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-secondary">Sign In!</a></li>
+          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-secondary">Sign Up!</a></li>
+          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-success ml-4">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+      <!-- Include your footer information here -->
+    </footer>
+  </body>
+</html>
