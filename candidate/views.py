@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView
 from employer.models import Applicant
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 class CandidateSignUpView(CreateView):
     model = Applicant
@@ -30,18 +33,6 @@ def candidate_profile(request):
     context = {'applicant': applicant}
     return render(request, 'candidate/candidate_profile.html', context)
 
-def candidate_signup(request):
-    if request.method == 'POST':
-        form = CandidateSignUpForm(request.POST)
-        if form.is_valid():
-            applicant = form.save()
-            login(request, applicant, backend='ProjectStability.backends.ApplicantAuthBackend')
-            # Redirect to candidate home page after successful sign-up and login
-            return redirect('../candidate_home')
-    else:
-        form = CandidateSignUpForm()
-    return render(request, 'candidate/candidate_signup.html', {'form': form})
-
 def candidate_signin(request):
     if request.method == 'POST':
         form = CandidateSignInForm(request.POST)
@@ -58,9 +49,6 @@ def candidate_signin(request):
         form = CandidateSignInForm()
     return render(request, 'candidate/candidate_signin.html', {'form': form})
 
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-
 def candidate_logout(request):
     logout(request)
-    return redirect('candidate:candidate_signin')
+    return redirect(reverse_lazy('home'))

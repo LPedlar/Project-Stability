@@ -27,7 +27,7 @@ from django.contrib import admin
 from django.urls import path
 from candidate import views
 from django.urls import path
-from employer.views import HomeView
+from employer.views import HomeView, home, EmployerCandidateSignUpView
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
@@ -38,7 +38,7 @@ app_name = 'ProjectStability'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
+    path('', EmployerCandidateSignUpView.as_view(), name='home'),
     path('candidate/', include('candidate.urls')),  # include candidate app URLs
     path('employer/', include('employer.urls')),  # include employer app URLs
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

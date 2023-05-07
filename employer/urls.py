@@ -7,8 +7,6 @@ from .views import EmployerSignUpView
 app_name = 'employer'
 
 urlpatterns = [
-    #path('signup/', employer_views.employer_signup, name='employer_signup'),
-    #path('signup/', employer_views.employer_signup, name='employer_signup'),
     path('signup/', EmployerSignUpView.as_view(), name='employer_signup'),
     path('signin/', employer_views.employer_signin, name='employer_signin'),
     path('employer_home/', views.employer_home, name='employer_home'),
