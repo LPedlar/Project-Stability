@@ -18,4 +18,5 @@ urlpatterns = [
     path('profile/', views.employer_profile, name='employer_profile'),
     path('logout/', views.employer_logout, name='employer_logout'),
     # other paths for employer app viewsCandidateSignUpView.as_view()
+    path('user_pipeline/', views.user_pipeline, name='user_pipeline'),
 ]

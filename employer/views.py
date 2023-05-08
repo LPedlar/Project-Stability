@@ -15,7 +15,7 @@ from .models import Employer, Applicant
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from .models import Job
 from django.shortcuts import redirect
@@ -177,5 +177,5 @@ def employer_logout(request):
     logout(request)
     return redirect(reverse_lazy('home'))
 
-
-
+def user_pipeline(request):
+        return render(request, 'employer/user_pipeline.html')
