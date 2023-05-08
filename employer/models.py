@@ -20,11 +20,11 @@ class Employer(models.Model):
 
 class Job(models.Model):
     JobID = models.AutoField(primary_key=True)
-    JobTitle = models.CharField(max_length=255)
-    JobDescription = models.TextField(blank=True, null=True)
+    JobTitle = models.CharField(max_length=255, verbose_name= "Job Title")
+    JobDescription = models.TextField(blank=True, null=True, verbose_name="Job Description")
     Salary = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     Location = models.CharField(max_length=255, blank=True, null=True)
-    DatePosted = models.DateField()
+    DatePosted = models.DateField(verbose_name= "Date Posted")
     EmployerID = models.ForeignKey(Employer, on_delete=models.CASCADE)
     def __str__(self):
         return self.JobTitle

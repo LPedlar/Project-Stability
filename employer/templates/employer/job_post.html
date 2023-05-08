@@ -1,5 +1,5 @@
-{% extends 'employer/employer_base.html' %} {% block content %}
-{% comment %} Adding Bootstrap {% endcomment %}
+{% extends 'employer/employer_base.html' %} {% block content %} {% comment %}
+Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +23,18 @@
   </body>
 </html>
 
-<div style="display:flex; justify-content:center; align-items:center; height:75vh;">
-  <div style="text-align:center;">
-    <h1>Post a Job</h1>
-    <form method="POST">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Submit</button>
-    </form>
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h1 class="display-1 text-center mb-4 border-bottom pb-3 text-gradient">
+        Post a Job
+      </h1>
+
+      <form method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <button class="btn btn-primary mt-3" type="submit">Submit</button>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
