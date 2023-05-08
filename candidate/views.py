@@ -2,11 +2,12 @@ from employer.forms import ApplicantForm, CandidateSignUpForm, CandidateSignInFo
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView
-from employer.models import Applicant
+from employer.models import Applicant, Job
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 class CandidateSignUpView(CreateView):
     model = Applicant
@@ -52,3 +53,16 @@ def candidate_signin(request):
 def candidate_logout(request):
     logout(request)
     return redirect(reverse_lazy('home'))
+
+def job_list(request):
+    jobs = Job.objects.all()
+    context = {'jobs': jobs}
+    return render(request, 'candidate/job_list.html', context)
+
+def job_pipeline(request):
+    return render(request, 'candidate/job_pipeline.html')
+
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    context = {'job': job}
+    return render(request, 'candidate/job_detail.html', context)

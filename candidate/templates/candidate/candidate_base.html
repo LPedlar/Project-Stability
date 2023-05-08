@@ -13,10 +13,23 @@ It should include the basic structure of your website, such as the header, navig
   </head>
   <body>
     <header class="header">
-      <nav class="nav">
+      <nav class="nav" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="card"> <!-- Employer Id Card -->
+          <div class="card-body">
+            {% if request.user.FirstName %}
+            <p>Company: {{ request.user.FirstName }}</p>
+            {% endif %}
+            {% comment %} {% if request.user.Industry %}
+            <p>Industry: {{ request.user.Industry }}</p>
+            {% endif %} {% endcomment %}
+          </div>
+        </div>
+      </nav>
         <ul>
-          <li><a href="{% url 'candidate:candidate_home' %}" class="btn btn-primary">Home</a></li>
-          <!-- Include any other links for your navigation bar -->
+          <li style="display: inline-block;"><a href="{% url 'candidate:candidate_home' %}" class="btn btn-primary">Home</a></li>
+          <li style="display: inline-block;"><a href="{% url 'candidate:job_list' %}" class="btn btn-secondary">Job Board</a></li>
+          <li style="display: inline-block;"><a href="{% url 'candidate:job_pipeline' %}" class="btn btn-secondary">Job Pipeline</a></li>
+          <li style="display: inline-block;"><a href="{% url 'candidate:candidate_profile'  %}" class="btn btn-success ml-4">Profile</a></li>
         </ul>
       </nav>
     </header>

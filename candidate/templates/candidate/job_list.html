@@ -28,53 +28,37 @@ Each job should be displayed with its title, description, and other relevant det
 <h1>Job Listings</h1>
 
 {% if jobs %}
-<ul>
-  {% for job in jobs %}
-  <li>
-    <h2>{{ job.JobTitle }}</h2>
-    <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
-    <p>{{ job.JobDescription }}</p>
-    <p>Salary: {{ job.Salary }}</p>
-    <p>Location: {{ job.Location }}</p>
-    <p>Date Posted: {{ job.DatePosted }}</p>
-    {% comment %}
-    <form method="post" action="{% url 'apply' job_id=job.JobID %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Apply</button>
-    </form>
-    **I commented this out because apply url has not yet been established.**
-    {%endcomment%}
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No jobs found.</p>
-{% endif %}{% comment %} Chris Styling Code {% endcomment %} {%if jobs %}
-<div class="card" style="width: 18rem">
-  {% for job in jobs %}
-  <style>
-    #div1 {
-      font-size: 150%;
-      font-weight: bold;
-    }
-  </style>
-  <div class="container">
-    <div class="card-deck mt-4">
-      <div class="card-header" id="div1">Job Title: {{ job.JobTitle }}</div>
-
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          Company Name: {{ job.EmployerID.CompanyName }}
-        </li>
-        <li class="list-group-item">
-          Job Description: {{ job.JobDescription }}
-        </li>
-        <li class="list-group-item">Starting Salary: {{ job.Salary }}</li>
-        <li class="list-group-item">Location: {{ job.Location }}</li>
-        <li class="list-group-item">Date Posted: {{ job.DatePosted }}</li>
-      </ul>
-      {% endfor %}
+    <div class="row mx-5 my-5">
+        {% for job in jobs %}
+            <div class="col-6 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h2 class="card-title">{{ job.JobTitle }}</h2><h4 class="company">Company: {{ job.EmployerID }}</h4>
+                    <a href="{% url 'candidate:job_detail' job_id=job.JobID %}" class="btn btn-secondary">Position Details</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <p class="card-text">{{ job.JobDescription }}</p>
+                    </div>
+                    <div class="col-md-6">
+                    <p class="card-text">Salary: {{ job.Salary }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <p class="card-text">Location: {{ job.Location }}</p>
+                    </div>
+                    <div class="col-md-6">
+                    <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
     </div>
-  </div>
-</div>
-{% endif %} {% endblock %}
+    {% else %}
+      <p>No jobs found.</p>
+    {% endif %}
+{% endblock %}

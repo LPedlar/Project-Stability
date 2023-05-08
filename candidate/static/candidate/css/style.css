@@ -39,7 +39,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #000000;
+  background-color: #000000 !important;
   color: #ff0000;
   border-radius: 0;
   font-size: 16px;
@@ -49,7 +49,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #fff;
+  background-color: #fff !important;
   color: #333;
 }
 
@@ -63,4 +63,49 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.card {
+      background-color: rgb(212, 212, 212) !important;
+      border: 2px solid #333 !important;
+}
+
+.card3 {
+    background-color: rgb(212, 212, 212) !important;
+    border: 2px solid #333 !important;
+    top: 0;
+    height: 100px !important;
+    padding: 198px;
+}
+
+.card4 {
+    background-color: rgb(212, 212, 212) !important;
+    border: 2px solid #333 !important;
+    top: 0;
+    height: 100px !important;
+    padding: 206px;
+}
+
+.header {
+  position: relative;
+}
+
+.card1 {
+  background-color: seashell;
+  max-width: fit-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100px;
+  padding: 10px;
+  border: 4px solid #333;
+}
+
+.card1 p:first-child {
+    border-bottom: 1px solid #333;
+}
+
+.card1 p {
+  font-size: 25px;
+  margin: 0 0 5px;
 }
