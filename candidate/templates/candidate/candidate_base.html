@@ -17,7 +17,7 @@ It should include the basic structure of your website, such as the header, navig
         <div class="card"> <!-- Employer Id Card -->
           <div class="card-body">
             {% if request.user.FirstName %}
-            <p>Company: {{ request.user.FirstName }}</p>
+            <p>Name: {{ request.user.FirstName }} {{ request.user.LastName }}</p>
             {% endif %}
             {% comment %} {% if request.user.Industry %}
             <p>Industry: {{ request.user.Industry }}</p>

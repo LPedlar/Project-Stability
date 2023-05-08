@@ -49,7 +49,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #fff !important;
+  background-color: #717171 !important;
   color: #333;
 }
 
@@ -75,7 +75,7 @@ body {
     border: 2px solid #333 !important;
     top: 0;
     height: 100px !important;
-    padding: 198px;
+    padding: 40px;
 }
 
 .card4 {

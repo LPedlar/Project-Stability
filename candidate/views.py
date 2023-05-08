@@ -8,6 +8,11 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from employer.models import Application, ApplicationStatus
+from datetime import date
+from django.utils import timezone
+from django.contrib import messages
 
 class CandidateSignUpView(CreateView):
     model = Applicant
@@ -66,3 +71,98 @@ def job_detail(request, job_id):
     job = get_object_or_404(Job, JobID=job_id)
     context = {'job': job}
     return render(request, 'candidate/job_detail.html', context)
+
+def int_detail(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    context = {'job': job}
+    return render(request, 'candidate/interested_detail.html', context)
+
+def apply(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    context = {'job': job}
+    return render(request, 'candidate/apply.html', context)
+
+def save(request, job_id):
+    # Get the job and the logged-in user
+    job = get_object_or_404(Job, JobID=job_id)
+    applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+
+    # Check if the applicant has already applied to the job
+    if Application.objects.filter(JobID=job, ApplicantID=applicant).exists():
+        messages.error(request, "You have already applied to this job.")
+    else:
+        # Create a new application with the necessary fields
+        application = Application(
+            JobID=job,
+            ApplicantID=applicant,
+            DateApplied=timezone.now(),
+            StatusID=ApplicationStatus.objects.filter(StatusName='Interested').first()
+        )
+
+        # Save the new application
+        application.save()
+        messages.success(request, "Application saved successfully.")
+
+    # Redirect back to the job details page
+    return redirect('candidate:job_detail', job_id=job.JobID)
+
+
+@login_required
+def interested(request):
+    candidate = request.user
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Interested')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'candidate/interested.html', context)
+
+@login_required
+def in_review(request):
+    candidate = request.user
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='In Review')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'candidate/in_review.html', context)
+
+@login_required
+def approved(request):
+    candidate = request.user
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Approved')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'candidate/approved.html', context)
+
+@login_required
+def dormant(request):
+    candidate = request.user
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Dormant')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'candidate/dormant.html', context)
+
+@login_required
+def declined(request):
+    candidate = request.user
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Declined')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'candidate/declined.html', context)

@@ -22,6 +22,12 @@
   </body>
 </html>
 
+<li style="display: inline-block; margin-left: 10px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">In Review</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Approved</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Dormant</a></li>
+<li style="display: inline-block; margin-left: 348px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Declined</a></li>
+
 <div class="col-6 col-lg-8 mb-4 ps-lg-4" style="position: absolute; top: 150px; right: 1;">
     <div class="card4 h-100">
     <div class="card-body">
@@ -62,7 +68,6 @@
   </div>
 </div>
 
-<h1>Job Listings</h1>
   <!-- Right Column -->
   <div class="col-6 col-lg-4 mb-4 ps-lg-4" style="position: absolute; top: 150px; right: 26px;">
   <div class="card3 h-100">
@@ -103,7 +108,7 @@
       </div>
       <div class="mt-auto">
         <div class="d-flex align-items-center justify-content-center">
-          <a href="{% url 'candidate:job_list'%}" class="btn btn-primary me-2" style="padding: 28px">Back</a>
+          <a href="{% url 'candidate:interested'%}" class="btn btn-primary me-2" style="padding: 28px">Back</a>
           <button type="button" class="btn btn-secondary me-2">See Reviews</button>
           <button type="button" class="btn btn-secondary me-2">Go to Website</button>
           <a href="{% url 'candidate:apply' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 20px">Apply</a>
