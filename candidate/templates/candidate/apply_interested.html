@@ -23,10 +23,10 @@
 </html>
 
 <li style="display: inline-block; margin-left: 10px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
-<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:in_review' %}" class="btn btn-primary">In Review</a></li>
-<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:approved' %}" class="btn btn-primary">Approved</a></li>
-<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:dormant' %}" class="btn btn-primary">Dormant</a></li>
-<li style="display: inline-block; margin-left: 348px; margin-top: 10px;"><a href="{% url 'candidate:declined' %}" class="btn btn-primary">Declined</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">In Review</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Approved</a></li>
+<li style="display: inline-block; margin-left: 350px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Dormant</a></li>
+<li style="display: inline-block; margin-left: 348px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Declined</a></li>
 
 <div class="col-6 col-lg-8 mb-4 ps-lg-4" style="position: absolute; top: 150px; right: 1;">
     <div class="card4 h-100">
@@ -104,14 +104,14 @@
       </div>
       <div class="d-flex flex-column align-items-center mb-3" style="margin-top: 00px;">
         <h4 class="card-subtitle mb-2">Save this listing!</h4>
-        <a href="{% url 'candidate:save_interested' job_id=job.JobID %}" class="btn btn-primary my-2">Save Listing</a>
+        <a href="{% url 'candidate:save' job_id=job.JobID %}" class="btn btn-primary my-2">Save Listing</a>
       </div>
       <div class="mt-auto">
         <div class="d-flex align-items-center justify-content-center">
-          <a href="{% url 'candidate:interested'%}" class="btn btn-primary me-2" style="padding: 28px">Back</a>
+          <a href="{% url 'candidate:interested_detail' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 28px">Back</a>
           <button type="button" class="btn btn-secondary me-2">See Reviews</button>
           <button type="button" class="btn btn-secondary me-2">Go to Website</button>
-          <a href="{% url 'candidate:apply_interested' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 20px">Apply</a>
+          <a href="{% url 'candidate:application_confirmation' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 20px">Apply</a>
         </div>
       </div>
     </div>

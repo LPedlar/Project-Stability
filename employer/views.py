@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib.auth import login
 from .forms import EmployerSignUpForm, CandidateSignUpForm, CandidateSignInForm, EmployerSignInForm
-from .models import Employer, Applicant
+from .models import Employer, Applicant, ApplicationStatus
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import login, authenticate
@@ -134,6 +134,18 @@ def index(request):
     return render(request, 'index.html')
 
 def employer_home(request):
+    statuses = [
+        ApplicationStatus.INTERESTED,
+        ApplicationStatus.IN_REVIEW,
+        ApplicationStatus.ACCEPTED,
+        ApplicationStatus.DORMANT,
+        ApplicationStatus.DECLINED,
+    ]
+
+    for status in statuses:
+        obj, created = ApplicationStatus.objects.get_or_create(StatusName=status)
+        if created:
+            obj.save()
     print("Home view called") # Add this line
     employers = Employer.objects.all()
     context = {'employers': employers}

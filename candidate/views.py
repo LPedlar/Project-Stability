@@ -27,6 +27,18 @@ class CandidateSignUpView(CreateView):
 
 @login_required
 def candidate_home(request):
+    statuses = [
+        ApplicationStatus.INTERESTED,
+        ApplicationStatus.IN_REVIEW,
+        ApplicationStatus.ACCEPTED,
+        ApplicationStatus.DORMANT,
+        ApplicationStatus.DECLINED,
+    ]
+
+    for status in statuses:
+        obj, created = ApplicationStatus.objects.get_or_create(StatusName=status)
+        if created:
+            obj.save()
     try:
         applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
     except Applicant.DoesNotExist:
@@ -82,6 +94,11 @@ def apply(request, job_id):
     context = {'job': job}
     return render(request, 'candidate/apply.html', context)
 
+def apply_interested(request, job_id):
+    job = get_object_or_404(Job, JobID=job_id)
+    context = {'job': job}
+    return render(request, 'candidate/apply_interested.html', context)
+
 def save(request, job_id):
     # Get the job and the logged-in user
     job = get_object_or_404(Job, JobID=job_id)
@@ -105,6 +122,30 @@ def save(request, job_id):
 
     # Redirect back to the job details page
     return redirect('candidate:job_detail', job_id=job.JobID)
+
+def save_interested(request, job_id):
+    # Get the job and the logged-in user
+    job = get_object_or_404(Job, JobID=job_id)
+    applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+
+    # Check if the applicant has already applied to the job
+    if Application.objects.filter(JobID=job, ApplicantID=applicant).exists():
+        messages.error(request, "You have already applied to this job.")
+    else:
+        # Create a new application with the necessary fields
+        application = Application(
+            JobID=job,
+            ApplicantID=applicant,
+            DateApplied=timezone.now(),
+            StatusID=ApplicationStatus.objects.filter(StatusName='Interested').first()
+        )
+
+        # Save the new application
+        application.save()
+        messages.success(request, "Application saved successfully.")
+
+    # Redirect back to the job details page
+    return redirect('candidate:interested_detail', job_id=job.JobID)
 
 
 @login_required
@@ -166,3 +207,31 @@ def declined(request):
         'jobs': jobs,
     }
     return render(request, 'candidate/declined.html', context)
+
+def apply_confirm(request, job_id):
+    # Get the job and the logged-in user
+    job = get_object_or_404(Job, JobID=job_id)
+    applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+
+    # Get the 'In Review' status object
+    status = ApplicationStatus.objects.get(StatusName='In Review')
+
+    # Check if the applicant has already applied to the job
+    if Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status).exists():
+        print("Application exists")
+        messages.error(request, "You have already applied to this job.")
+    else:
+        # Create a new application with the necessary fields
+        application = Application(
+            JobID=job,
+            ApplicantID=applicant,
+            DateApplied=timezone.now(),
+            StatusID=status
+        )
+
+        # Save the new application
+        application.save()
+        messages.success(request, "Application saved successfully.")
+
+    # Redirect back to the job details page
+    return redirect('candidate:in_review')
