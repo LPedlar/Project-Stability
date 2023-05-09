@@ -14,22 +14,24 @@ It should include the basic structure of your website, such as the header, navig
   <body>
     <header class="header">
       <nav class="nav" style="display: flex; justify-content: space-between; align-items: center;">
-        <div class="card"> <!-- Employer Id Card -->
-          <div class="card-body">
-            {% if request.user.FirstName %}
+        <div class="card1"> <!-- Employer Id Card -->
+          <div class="card1-body">
+            {% if request.user.FirstName and request.user.LastName %}
             <p>Name: {{ request.user.FirstName }} {{ request.user.LastName }}</p>
             {% endif %}
-            {% comment %} {% if request.user.Industry %}
-            <p>Industry: {{ request.user.Industry }}</p>
-            {% endif %} {% endcomment %}
+            {% if request.user.Profession %}
+            <p>Profession: {{ request.user.Profession }}</p>
+            {% endif %}
           </div>
         </div>
       </nav>
         <ul>
-          <li style="display: inline-block;"><a href="{% url 'candidate:candidate_home' %}" class="btn btn-primary">Home</a></li>
-          <li style="display: inline-block;"><a href="{% url 'candidate:job_list' %}" class="btn btn-secondary">Job Board</a></li>
-          <li style="display: inline-block;"><a href="{% url 'candidate:job_pipeline' %}" class="btn btn-secondary">Job Pipeline</a></li>
-          <li style="display: inline-block;"><a href="{% url 'candidate:candidate_profile'  %}" class="btn btn-success ml-4">Profile</a></li>
+          <div class="d-flex flex-column align-items-center">
+            <li style="display: inline-block;"><a href="{% url 'candidate:candidate_home' %}" class="btn btn-primary">Home</a></li>
+          </div>
+          <li style="display: inline-block; margin-left: 1300px;"><a href="{% url 'candidate:job_list' %}" class="btn btn-secondary">Job Board</a></li>
+          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'candidate:job_pipeline' %}" class="btn btn-secondary">Job Pipeline</a></li>
+          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'candidate:candidate_profile'  %}" class="btn btn-success ml-4">Profile</a></li>
         </ul>
       </nav>
     </header>

@@ -1,0 +1,145 @@
+{% extends 'employer/employer_base.html' %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+<li style="display: inline-block; margin-left: 10px; margin-top: 10px">
+  <a href="{% url 'employer:applications' %}" class="btn btn-primary"
+    >Applications</a
+  >
+</li>
+<li style="display: inline-block; margin-left: 340px; margin-top: 10px">
+  <a href="{% url 'employer:interview' %}" class="btn btn-primary">Interview</a>
+</li>
+<li style="display: inline-block; margin-left: 345px; margin-top: 10px">
+  <a href="{% url 'employer:approved' %}" class="btn btn-primary">Approved</a>
+</li>
+<li style="display: inline-block; margin-left: 345px; margin-top: 10px">
+  <a href="{% url 'employer:position_requests' %}" class="btn btn-primary"
+    >Position Requests</a
+  >
+</li>
+<li style="display: inline-block; margin-left: 340px; margin-top: 10px">
+  <a href="{% url 'employer:hired' %}" class="btn btn-primary">Hired</a>
+</li>
+{% if jobs %}
+<div class="row mx-5 my-5">
+  {% for job in jobs %}
+  {% for application in job.application_set.all %}
+  <div class="col-12 col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-body d-flex flex-column justify-content-between p-0">
+        <div class="d-flex flex-wrap">
+          <div class="card flex-fill border-0">
+            <div class="my-new-card">
+            <!-- Applicant Id Card -->
+            <div class="card-body">
+                    {% if application.ApplicantID.FirstName and application.ApplicantID.LastName %}
+                        {% if forloop.first %}
+                            <p>Name: {{ application.ApplicantID.FirstName }} {{ application.ApplicantID.LastName }}</p>
+                            <p>Profession: {{ application.ApplicantID.Profession }}</p>
+                        {% endif %}
+                    {% endif %}
+                    {% if application.id == application_id %}
+                        <p>ApplicationID: {{ application.ApplicationID }}</p>
+                    {% endif %}
+            </div>
+            </div>
+          </div>
+          <div class="info-card flex-fill border-top-0 border-bottom-0">
+            <div class="info-card-body p-0">
+              <div
+                class="d-flex flex-column align-items-center mb-0"
+                style="margin-top: 0px"
+              >
+                <p class="info-card-text">Salary: {{ job.Salary }}</p>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center mb-0"
+                style="margin-top: 0px"
+              >
+                <p class="info-card-text">Salary: {{ job.Salary }}</p>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center mb-0"
+                style="margin-top: 0px"
+              >
+                <p class="info-card-text">Salary: {{ job.Salary }}</p>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center mb-0"
+                style="margin-top: 0px"
+              >
+                <p class="info-card-text">Salary: {{ job.Salary }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="button-card flex-fill border-0">
+            <div class="button-card-body p-0">
+              <div
+                class="d-flex flex-column align-items-center mb-1 p-0"
+                style="margin-top: 20px"
+              >
+                <div class="mt-auto">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-primary me-2 w-100">
+                      View Application
+                    </button>
+                    <a
+                      href="{% url 'candidate:apply' job_id=job.JobID %}"
+                      class="btn btn-danger me-2 w-100"
+                      style="padding: 20px"
+                      >Decline</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="d-flex flex-column align-items-center mb-1"
+                style="margin-top: 0px"
+              >
+                <div class="mt-auto">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-primary me-2 w-100">
+                      GoTo Listing
+                    </button>
+                    <a
+                      href="{% url 'employer:update2' application_id=application.ApplicationID %}"
+                      class="btn btn-success me-2 w-100"
+                      style="padding: 20px"
+                      >Interview</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endfor %}
+</div>
+{% else %}
+<p>No jobs found.</p>
+{% endif %} {% endblock %}

@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib.auth import login
 from .forms import EmployerSignUpForm, CandidateSignUpForm, CandidateSignInForm, EmployerSignInForm
-from .models import Employer, Applicant, ApplicationStatus
+from .models import Employer, Applicant, ApplicationStatus, Application
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import login, authenticate
@@ -22,6 +22,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 class EmployerCandidateSignUpView(TemplateView):
     template_name = 'ProjectStability/home.html'
@@ -137,7 +138,10 @@ def employer_home(request):
     statuses = [
         ApplicationStatus.INTERESTED,
         ApplicationStatus.IN_REVIEW,
+        ApplicationStatus.INTERVIEW,
         ApplicationStatus.ACCEPTED,
+        ApplicationStatus.REQUEST,
+        ApplicationStatus.HIRED,
         ApplicationStatus.DORMANT,
         ApplicationStatus.DECLINED,
     ]
@@ -191,3 +195,94 @@ def employer_logout(request):
 
 def user_pipeline(request):
         return render(request, 'employer/user_pipeline.html')
+    
+@login_required
+def applications(request):
+    employer = request.user.EmployerID
+    applications = Application.objects.filter(JobID__EmployerID=employer, StatusID__StatusName='In Review')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'employer/applications.html', context)
+
+@login_required
+def interview(request):
+    employer = request.user.EmployerID
+    applications = Application.objects.filter(JobID__EmployerID=employer, StatusID__StatusName='Interview')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'employer/interview.html', context)
+
+@login_required
+def approved(request):
+    employer = request.user.EmployerID
+    applications = Application.objects.filter(JobID__EmployerID=employer, StatusID__StatusName='Accepted')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'employer/approved.html', context)
+
+@login_required
+def position_request(request):
+    employer = request.user.EmployerID
+    applications = Application.objects.filter(JobID__EmployerID=employer, StatusID__StatusName='Request')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'employer/position_requests.html', context)
+
+@login_required
+def hired(request):
+    employer = request.user.EmployerID
+    applications = Application.objects.filter(JobID__EmployerID=employer, StatusID__StatusName='Hired')
+    jobs = []
+    for app in applications:
+        jobs.append(app.JobID)
+    context = {
+        'jobs': jobs,
+    }
+    return render(request, 'employer/hired.html', context)
+
+def update1(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Interview')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to interview page
+    return redirect('employer:interview')
+
+def update2(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Accepted')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to interview page
+    return redirect('employer:approved')
+

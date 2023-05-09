@@ -30,7 +30,10 @@ def candidate_home(request):
     statuses = [
         ApplicationStatus.INTERESTED,
         ApplicationStatus.IN_REVIEW,
+        ApplicationStatus.INTERVIEW,
         ApplicationStatus.ACCEPTED,
+        ApplicationStatus.REQUEST,
+        ApplicationStatus.HIRED,
         ApplicationStatus.DORMANT,
         ApplicationStatus.DECLINED,
     ]
@@ -175,7 +178,7 @@ def in_review(request):
 @login_required
 def approved(request):
     candidate = request.user
-    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Approved')
+    applications = Application.objects.filter(ApplicantID=candidate, StatusID__StatusName='Accepted')
     jobs = []
     for app in applications:
         jobs.append(app.JobID)
@@ -214,19 +217,25 @@ def apply_confirm(request, job_id):
     applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
 
     # Get the 'In Review' status object
-    status = ApplicationStatus.objects.get(StatusName='In Review')
+    status_in_review = ApplicationStatus.objects.get(StatusName='In Review')
+    status_interested = ApplicationStatus.objects.get(StatusName='Interested')
 
     # Check if the applicant has already applied to the job
-    if Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status).exists():
-        print("Application exists")
+    if Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status_in_review).exists():
         messages.error(request, "You have already applied to this job.")
+    elif Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status_interested).exists():
+        # Update the existing application's status to 'In Review'
+        application = Application.objects.get(JobID=job, ApplicantID=applicant, StatusID=status_interested)
+        application.StatusID = status_in_review
+        application.save()
+        messages.success(request, "Application updated to In Review successfully.")
     else:
         # Create a new application with the necessary fields
         application = Application(
             JobID=job,
             ApplicantID=applicant,
             DateApplied=timezone.now(),
-            StatusID=status
+            StatusID=status_in_review
         )
 
         # Save the new application
@@ -235,3 +244,14 @@ def apply_confirm(request, job_id):
 
     # Redirect back to the job details page
     return redirect('candidate:in_review')
+
+def update0(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Update the application's status to 'Interview'
+    application.delete()
+    messages.success(request, "Application removed successfully.")
+
+    # Redirect to interview page
+    return redirect('candidate:interested')

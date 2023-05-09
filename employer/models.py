@@ -35,6 +35,7 @@ class Applicant(models.Model):
     LastName = models.CharField(max_length=255)
     Email = models.CharField(max_length=255)
     Password = models.CharField(max_length=255)
+    Profession = models.CharField(max_length=255, default='Unemployed')
     is_applicant = models.BooleanField(default=True)
     last_login = models.DateTimeField(blank=True, null=True)
 
@@ -50,14 +51,20 @@ class Applicant(models.Model):
 class ApplicationStatus(models.Model):
     INTERESTED = 'Interested'
     IN_REVIEW = 'In Review'
+    INTERVIEW = 'Interview'
     ACCEPTED = 'Accepted'
+    REQUEST = 'Request'
+    HIRED = 'Hired'
     DORMANT = 'Dormant'
     DECLINED = 'Declined'
     STATUS_CHOICES = [
         (INTERESTED, 'Interested'),
         (IN_REVIEW, 'In Review'),
+        (INTERVIEW, 'In Review'),
         (ACCEPTED, 'Accepted'),
-        (DORMANT, 'Dormant'),
+        (REQUEST, 'Request'),
+        (IN_REVIEW, 'Hired'),
+        (HIRED, 'Dormant'),
         (DECLINED, 'Declined'),
     ]
     id = models.AutoField(primary_key=True)

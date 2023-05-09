@@ -66,8 +66,8 @@ body {
 }
 
 .card {
-      background-color: rgb(212, 212, 212) !important;
-      border: 2px solid #333 !important;
+  background-color: rgb(212, 212, 212) !important;
+  border: 2px solid #333 !important;
 }
 
 .header {
@@ -86,10 +86,41 @@ body {
 }
 
 .card1 p:first-child {
-    border-bottom: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
 .card1 p {
   font-size: 25px;
   margin: 0 0 5px;
+}
+
+.my-new-card {
+  background-color: seashell !important;
+  max-width: fit-content !important;
+  max-height: fit-content !important;
+  position: absolute !important;
+  border: 2px solid #333 !important;
+}
+
+.my-new-card p:first-child {
+  border-bottom: 1px solid #333 !important;
+  padding-top: 15px;
+  padding-left: 10px;
+}
+
+.my-new-card p {
+  font-size: 24px !important;
+  margin: 0 0 5px !important;
+}
+
+.button-card {
+  max-width: fit-content; /* Change this value to adjust the maximum width of the card */
+  padding: 5px;
+}
+
+.button-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

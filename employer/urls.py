@@ -19,4 +19,11 @@ urlpatterns = [
     path('logout/', views.employer_logout, name='employer_logout'),
     # other paths for employer app viewsCandidateSignUpView.as_view()
     path('user_pipeline/', views.user_pipeline, name='user_pipeline'),
+    path('applications/', views.applications, name='applications'),
+    path('interview/', views.interview, name='interview'),
+    path('approved/', views.approved, name='approved'),
+    path('position_requests/', views.position_request, name='position_requests'),
+    path('hired/', views.hired, name='hired'),
+    path('update1/<int:application_id>', views.update1, name='update1'),
+    path('update2/<int:application_id>', views.update2, name='update2'),
 ]
