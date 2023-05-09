@@ -1,8 +1,8 @@
 <!-- This template will display the details of a specific job, 
 including its title, description, salary, location, and the name of the employer who posted it. -->
 
-{% extends 'employer/employer_base.html' %} {% block content %}
-{% comment %} Adding Bootstrap {% endcomment %}
+{% extends 'employer/employer_base.html' %} {% block content %} {% comment %}
+Adding Bootstrap {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,14 @@ including its title, description, salary, location, and the name of the employer
 <p>Salary: {{ job.Salary }}</p>
 <p>Location: {{ job.Location }}</p>
 <p>Date Posted: {{ job.DatePosted }}</p>
-<li style="display: inline-block;"><a href="{% url 'employer:delete_job' job_id=job.JobID %}" class="btn btn-secondary">Delete Job</a></li>
-<li style="display: inline-block;"><a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a></li>
-
+<li style="display: inline-block">
+  <a
+    href="{% url 'employer:delete_job' job_id=job.JobID %}"
+    class="btn btn-secondary"
+    >Delete Job</a
+  >
+</li>
+<li style="display: inline-block">
+  <a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a>
+</li>
 {% endblock %}

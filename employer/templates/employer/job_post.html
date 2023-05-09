@@ -29,12 +29,72 @@ Adding Bootstrap {% endcomment %}
       <h1 class="display-1 text-center mb-4 border-bottom pb-3 text-gradient">
         Post a Job
       </h1>
-
       <form method="POST">
-        {% csrf_token %} {{ form.as_p }}
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="{{ form.JobTitle.auto_id }}" class="form-label"
+            >Job Title</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="{{ form.JobTitle.auto_id }}"
+            name="{{ form.JobTitle.html_name }}"
+            value="{{ form.JobTitle.value|default:'' }}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.JobDescription.auto_id }}" class="form-label"
+            >Job Description</label
+          >
+          <textarea
+            class="form-control"
+            id="{{ form.JobDescription.auto_id }}"
+            name="{{ form.JobDescription.html_name }}"
+            rows="3"
+          >
+{{ form.JobDescription.value|default:'' }}</textarea
+          >
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.Salary.auto_id }}" class="form-label"
+            >Salary</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="{{ form.Salary.auto_id }}"
+            name="{{ form.Salary.html_name }}"
+            value="{{ form.Salary.value|default:'' }}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.Location.auto_id }}" class="form-label"
+            >Location</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="{{ form.Location.auto_id }}"
+            name="{{ form.Location.html_name }}"
+            value="{{ form.Location.value|default:'' }}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.DatePosted.auto_id }}" class="form-label"
+            >Date Posted</label
+          >
+          <input
+            type="date"
+            class="form-control"
+            id="{{ form.DatePosted.auto_id }}"
+            name="{{ form.DatePosted.html_name }}"
+            value="{{ form.DatePosted.value|default:'' }}"
+          />
+        </div>
         <button class="btn btn-primary mt-3" type="submit">Submit</button>
       </form>
+      {% endblock %}
     </div>
   </div>
 </div>
-{% endblock %}
