@@ -5,12 +5,9 @@ from django.views.generic import CreateView
 from employer.models import Applicant, Job
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
 from employer.models import Application, ApplicationStatus
-from datetime import date
 from django.utils import timezone
 from django.contrib import messages
 
@@ -263,3 +260,48 @@ def update0(request, application_id):
 
     # Redirect to interview page
     return redirect('candidate:interested')
+
+def update1(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Dormant')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to interview page
+    return redirect('candidate:approved')
+
+def update2(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Request')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to interview page
+    return redirect('candidate:approved')
+
+def update3(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Accepted')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to interview page
+    return redirect('candidate:dormant')

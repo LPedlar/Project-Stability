@@ -22,10 +22,31 @@
   </body>
 </html>
 
-<h1>Applicant Home Page</h1>
-<p>Welcome to the Applicant home page. 
-  {% if request.user.FirstName %}
-  You are logged in as {{ request.user.FirstName }}.
-  {% endif %}</p>
-  <a href="{% url 'candidate:candidate_profile' %}"><button>Profile</button></a>
+<style>
+  h1 {
+    font-weight: 650;
+  }
+  p {
+    font-size: 25px;
+  }
+</style>
+<div class="container">
+  <div class="text-center" style="margin-top: 50px">
+    <h1>Applicant Home Page</h1>
+    <p>
+      Welcome to the applicant home page. Thank you for using ProjectStability!
+    </p>
+  </div>
+  <div class="text-center">
+    <h1 class="h3 mt-8" style="margin-top: 50px">What is an Applicant?</h1>
+    <p>
+      An Applicant is one of the two account types that can apply to job listings
+      yo can find job listings in the 'Job Board', once you apply the application will be
+      sent to the Employer account where they can review and approve your application.
+      If an application is approved the applicant can choose to make the application "Dormant".
+      When an application is made dormant it puts the position on hold, this allows for applications
+      to never expire.
+    </p>
+  </div>
+</div>
 {% endblock %}

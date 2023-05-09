@@ -24,11 +24,11 @@
   </body>
 </html>
 
-<li style="display: inline-block; margin-left: 10px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
+<li style="display: inline-block; margin-left: 20px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:in_review' %}" class="btn btn-primary">In Review</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:approved' %}" class="btn btn-primary">Approved</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:dormant' %}" class="btn btn-primary">Dormant</a></li>
-<li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:declined' %}" class="btn btn-primary">Declined</a></li>
+<li style="display: inline-block; margin-left: 335px; margin-top: 10px;"><a href="{% url 'candidate:declined' %}" class="btn btn-primary">Declined</a></li>
     {% if jobs %}
     <div class="row mx-5 my-5">
         {% for job in jobs %}

@@ -60,11 +60,11 @@ class ApplicationStatus(models.Model):
     STATUS_CHOICES = [
         (INTERESTED, 'Interested'),
         (IN_REVIEW, 'In Review'),
-        (INTERVIEW, 'In Review'),
+        (INTERVIEW, 'Interview'),
         (ACCEPTED, 'Accepted'),
         (REQUEST, 'Request'),
-        (IN_REVIEW, 'Hired'),
-        (HIRED, 'Dormant'),
+        (HIRED, 'Hired'),
+        (DORMANT, 'Dormant'),
         (DECLINED, 'Declined'),
     ]
     id = models.AutoField(primary_key=True)

@@ -25,20 +25,41 @@
     ></script>
   </body>
 </html>
-
-<h1>Delete Job</h1>
-
-<p>Are you sure you want to delete this job?</p>
-
-<h2>{{ job.JobTitle }}</h2>
+<div style="margin-left: 40px;">
+<h1>{{ job.JobTitle }}</h1>
+<h4>Company: {{ job.EmployerID.CompanyName }}</h4>
 <p>{{ job.JobDescription }}</p>
 <p>Salary: {{ job.Salary }}</p>
 <p>Location: {{ job.Location }}</p>
 <p>Date Posted: {{ job.DatePosted }}</p>
+<li style="display: inline-block">
+    <a
+    href="{% url 'employer:delete_job' job_id=job.JobID %}"
+    class="btn btn-secondary"
+    >Delete Job</a
+    >
+</li>
+<li style="display: inline-block">
+    <a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a>
+</li>
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Delete Job</h1>
+            <p class="card-text">Are you sure you want to delete this job?</p>
+            <h2>{{ job.JobTitle }}</h2>
+            <p>{{ job.JobDescription }}</p>
+            <p>Salary: {{ job.Salary }}</p>
+            <p>Location: {{ job.Location }}</p>
+            <p>Date Posted: {{ job.DatePosted }}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger mr-2">Yes, delete</button>
+                <a href="{% url 'employer:job_detail' job_id=job.JobID %}" class="btn btn-secondary">No, cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
 
-<form method="POST">
-  {% csrf_token %}
-  <button type="submit">Yes, delete</button>
-  <a href="{% url 'employer:job_detail' job_id=job.JobID %}" class="btn btn-secondary">No, cancel</a>
-</form>
 {% endblock %}

@@ -26,20 +26,22 @@ Adding Bootstrap {% endcomment %}
   </body>
 </html>
 
-<h1>{{ job.JobTitle }}</h1>
-<h4>Company: {{ job.EmployerID.CompanyName }}</h4>
-<p>{{ job.JobDescription }}</p>
-<p>Salary: {{ job.Salary }}</p>
-<p>Location: {{ job.Location }}</p>
-<p>Date Posted: {{ job.DatePosted }}</p>
-<li style="display: inline-block">
-  <a
-    href="{% url 'employer:delete_job' job_id=job.JobID %}"
-    class="btn btn-secondary"
-    >Delete Job</a
-  >
-</li>
-<li style="display: inline-block">
-  <a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a>
-</li>
+<div style="margin-left: 40px;">
+  <h1>{{ job.JobTitle }}</h1>
+  <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
+  <p>{{ job.JobDescription }}</p>
+  <p>Salary: {{ job.Salary }}</p>
+  <p>Location: {{ job.Location }}</p>
+  <p>Date Posted: {{ job.DatePosted }}</p>
+  <li style="display: inline-block">
+    <a
+      href="{% url 'employer:delete_job' job_id=job.JobID %}"
+      class="btn btn-secondary"
+      >Delete Job</a
+    >
+  </li>
+  <li style="display: inline-block">
+    <a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Back</a>
+  </li>
+</div>
 {% endblock %}

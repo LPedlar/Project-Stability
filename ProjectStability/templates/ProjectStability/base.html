@@ -22,10 +22,12 @@ It should include the basic structure of your website, such as the header, navig
         </div>
       </nav>
         <ul>
-          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-primary">Home</a></li>
-          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-secondary">Sign In!</a></li>
-          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-secondary">Sign Up!</a></li>
-          <li style="display: inline-block;"><a href="{% url 'home' %}" class="btn btn-success ml-4">Profile</a></li>
+          <div class="d-flex flex-column align-items-center">
+            <li style="display: inline-block; margin-top: 10px;"><a href="{% url 'home' %}" class="btn btn-primary btn-lg">Home</a></li>
+          </div>
+          <li style="display: inline-block; margin-left: 1300px;"><a href="{% url 'home' %}" class="btn btn-secondary">Sign In!</a></li>
+          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'home'  %}" class="btn btn-secondary">Sign Up!</a></li>
+          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'home'  %}" class="btn btn-success">Profile</a></li>
         </ul>
       </nav>
     </header>

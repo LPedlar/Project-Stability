@@ -1,26 +1,14 @@
 from django.shortcuts import render, redirect
-from django.utils import timezone
-from .models import Employer, Job
-from .forms import JobForm, EmployerForm, EmployerSignInForm, EmployerSignUpForm
+from .models import Employer, Job, Applicant, ApplicationStatus, Application
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate, login
 from ProjectStability.backends import EmployerAuthBackend
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from django.contrib.auth import login
-from .forms import EmployerSignUpForm, CandidateSignUpForm, CandidateSignInForm, EmployerSignInForm
-from .models import Employer, Applicant, ApplicationStatus, Application
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
-from django.contrib.auth import login, authenticate
+from .forms import EmployerSignUpForm, CandidateSignUpForm, CandidateSignInForm, EmployerSignInForm, JobForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
-from .models import Job
-from django.shortcuts import redirect
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -269,7 +257,7 @@ def update1(request, application_id):
     messages.success(request, "Application saved successfully.")
 
     # Redirect to interview page
-    return redirect('employer:interview')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def update2(request, application_id):
     # Get the application using the inputted ID
@@ -284,5 +272,57 @@ def update2(request, application_id):
     messages.success(request, "Application saved successfully.")
 
     # Redirect to interview page
-    return redirect('employer:approved')
+    return redirect(request.META.get('HTTP_REFERER'))
 
+def hire(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+    job = application.JobID
+    job_title = job.JobTitle
+    
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Hired')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Retrieve the applicant using the ApplicantID on the application
+    applicant = application.ApplicantID
+    applicant.Profession = job_title
+    applicant.save()
+    
+    # Redirect to interview page
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def decline(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Get the 'Interview' status objects
+    interview_status = ApplicationStatus.objects.get(StatusName='Declined')
+
+    # Update the application's status to 'Interview'
+    application.StatusID = interview_status
+    application.save()
+    messages.success(request, "Application saved successfully.")
+
+    # Redirect to previous page
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def fire(request, application_id):
+    # Get the application using the inputted ID
+    application = get_object_or_404(Application, ApplicationID=application_id)
+
+    # Update the application's status to 'Interview'
+    application.delete()
+    messages.success(request, "Application removed successfully.")
+
+    # Retrieve the applicant using the ApplicantID on the application
+    applicant = application.ApplicantID
+    applicant.Profession = 'Unemployed'
+    applicant.save()
+    
+    # Redirect to interview page
+    return redirect(request.META.get('HTTP_REFERER'))

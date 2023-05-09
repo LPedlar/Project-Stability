@@ -24,43 +24,48 @@
   </body>
 </html>
 
-<li style="display: inline-block; margin-left: 10px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
+<li style="display: inline-block; margin-left: 20px; margin-top: 10px;"><a href="{% url 'candidate:interested' %}" class="btn btn-primary">Interested</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:in_review' %}" class="btn btn-primary">In Review</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:approved' %}" class="btn btn-primary">Approved</a></li>
 <li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:dormant' %}" class="btn btn-primary">Dormant</a></li>
-<li style="display: inline-block; margin-left: 355px; margin-top: 10px;"><a href="{% url 'candidate:declined' %}" class="btn btn-primary">Declined</a></li>
+<li style="display: inline-block; margin-left: 335px; margin-top: 10px;"><a href="{% url 'candidate:declined' %}" class="btn btn-primary">Declined</a></li>
     {% if jobs %}
     <div class="row mx-5 my-5">
         {% for job in jobs %}
-            <div class="col-6 col-lg-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <h2 class="card-title">{{ job.JobTitle }}</h2><h4 class="company">Company: {{ job.EmployerID }}</h4>
-                    <a href="{% url 'candidate:interested_detail' job_id=job.JobID %}" class="btn btn-secondary">Position Details</a>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <p class="card-text">{{ job.JobDescription }}</p>
+            {% with application=job.application_set.first %}
+                <div class="col-6 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h2 class="card-title">{{ job.JobTitle }}</h2>
+                                <h4 class="company">Company: {{ job.EmployerID }}</h4>
+                                <div class="d-flex justify-content-between">
+                                    <li style="display: inline-block; "><a href="{% url 'candidate:update3' application_id=application.ApplicationID %}" class="btn btn-success">Activate</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="card-text">{{ job.JobDescription }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text">Salary: {{ job.Salary }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="card-text">Location: {{ job.Location }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                    <p class="card-text">Salary: {{ job.Salary }}</p>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <p class="card-text">Location: {{ job.Location }}</p>
-                    </div>
-                    <div class="col-md-6">
-                    <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
+            {% endwith %}
         {% endfor %}
     </div>
-    {% else %}
-      <p>No jobs found.</p>
-    {% endif %}
-{% endblock %}
+{% else %}
+    <p>No jobs found.</p>
+{% endif %}
+{%endblock%}

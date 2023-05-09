@@ -1,6 +1,5 @@
 from django import forms
 from .models import Job, Employer, Applicant
-from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password

@@ -26,4 +26,7 @@ urlpatterns = [
     path('hired/', views.hired, name='hired'),
     path('update1/<int:application_id>', views.update1, name='update1'),
     path('update2/<int:application_id>', views.update2, name='update2'),
+    path('hire/<int:application_id>', views.hire, name='hire'),
+    path('decline/<int:application_id>', views.decline, name='decline'),
+    path('fire/<int:application_id>', views.fire, name='fire'),
 ]

@@ -27,5 +27,8 @@ urlpatterns = [
     path('candidate_home/', views.candidate_home, name='candidate_home'),
     path('logout/', views.candidate_logout, name='candidate_logout'),
     path('update0/<int:application_id>', views.update0, name='update0'),
+    path('update1/<int:application_id>', views.update1, name='update1'),
+    path('update2/<int:application_id>', views.update2, name='update2'),
+    path('update3/<int:application_id>', views.update3, name='update3'),
     # other URL patterns go here
 ]

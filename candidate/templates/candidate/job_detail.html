@@ -25,39 +25,14 @@
 <div class="col-6 col-lg-8 mb-4 ps-lg-4" style="position: absolute; top: 150px; right: 1;">
     <div class="card4 h-100">
     <div class="card-body">
-      <h5 class="card-title">{{ job.JobTitle }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">{{ job.EmployerID.CompanyName }}</h6>
-      <div class="d-flex align-items-center mb-3">
-        <span class="me-2">Job Rating:</span>
-        <div class="stars d-flex">
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-half"></i>
+      <div style="margin-left: 40px;">
+        <h1>{{ job.JobTitle }}</h1>
+        <h4>Company: {{ job.EmployerID.CompanyName }}</h4>
+        <p>{{ job.JobDescription }}</p>
+        <p>Salary: {{ job.Salary }}</p>
+        <p>Location: {{ job.Location }}</p>
+        <p>Date Posted: {{ job.DatePosted }}</p>
         </div>
-      </div>
-      <h6 class="card-subtitle mb-2 text-muted">Job Info</h6>
-      <div class="mb-3">
-        <h6 class="card-subtitle mb-2">Salary or Hourly?</h6>
-        {% comment %} <p>{{ job.PayType }}</p> {% endcomment %}
-      </div>
-      <div class="mb-3">
-        <h6 class="card-subtitle mb-2">Pay</h6>
-        {% comment %} <p>{{ job.Salary }}</p> {% endcomment %}
-      </div>
-      <div class="mb-3">
-        <h6 class="card-subtitle mb-2">Is Pay Negotiable?</h6>
-        {% comment %} <p>{{ job.IsNegotiable }}</p> {% endcomment %}
-      </div>
-      <div class="mb-3">
-        <h6 class="card-subtitle mb-2">Is Dormancy Available?</h6>
-        {% comment %} <p>{{ job.IsDormancyAvailable }}</p> {% endcomment %}
-      </div>
-      <div class="mb-3">
-        <h6 class="card-subtitle mb-2">Where is the position located?</h6>
-        {% comment %} <p>{{ job.Location }}</p> {% endcomment %}
-      </div>
     </div>
   </div>
 </div>
