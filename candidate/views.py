@@ -106,9 +106,13 @@ def save(request, job_id):
     # Get the job and the logged-in user
     job = get_object_or_404(Job, JobID=job_id)
     applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+    status_interested = ApplicationStatus.objects.get(StatusName='Interested')
 
     # Check if the applicant has already applied to the job
-    if Application.objects.filter(JobID=job, ApplicantID=applicant).exists():
+    if Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status_interested).exists():
+        messages.error(request, "You have already applied to this job.")
+    # Check if the applicant has already applied to the job
+    elif Application.objects.filter(JobID=job, ApplicantID=applicant).exists():
         messages.error(request, "You have already applied to this job.")
     else:
         # Create a new application with the necessary fields
@@ -130,7 +134,11 @@ def save_interested(request, job_id):
     # Get the job and the logged-in user
     job = get_object_or_404(Job, JobID=job_id)
     applicant = Applicant.objects.get(ApplicantID=request.user.ApplicantID)
+    status_interested = ApplicationStatus.objects.get(StatusName='Interested')
 
+    # Check if the applicant has already applied to the job
+    if Application.objects.filter(JobID=job, ApplicantID=applicant, StatusID=status_interested).exists():
+        messages.error(request, "You have already applied to this job.")
     # Check if the applicant has already applied to the job
     if Application.objects.filter(JobID=job, ApplicantID=applicant).exists():
         messages.error(request, "You have already applied to this job.")
