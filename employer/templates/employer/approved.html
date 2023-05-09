@@ -54,10 +54,8 @@
             <!-- Applicant Id Card -->
             <div class="card-body">
                     {% if application.ApplicantID.FirstName and application.ApplicantID.LastName %}
-                        {% if forloop.first %}
                             <p>Name: {{ application.ApplicantID.FirstName }} {{ application.ApplicantID.LastName }}</p>
                             <p>Profession: {{ application.ApplicantID.Profession }}</p>
-                        {% endif %}
                     {% endif %}
                     {% if application.id == application_id %}
                         <p>ApplicationID: {{ application.ApplicationID }}</p>

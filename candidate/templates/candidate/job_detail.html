@@ -106,7 +106,7 @@
           <a href="{% url 'candidate:job_list'%}" class="btn btn-primary me-2" style="padding: 28px">Back</a>
           <button type="button" class="btn btn-secondary me-2">See Reviews</button>
           <button type="button" class="btn btn-secondary me-2">Go to Website</button>
-          <a href="{% url 'candidate:apply' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 20px">Apply</a>
+          <a href="{% url 'candidate:application_confirmation' job_id=job.JobID %}" class="btn btn-primary me-2" style="padding: 20px">Apply</a>
         </div>
       </div>
     </div>

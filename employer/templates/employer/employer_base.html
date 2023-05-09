@@ -29,10 +29,9 @@ It should include the basic structure of your website, such as the header, navig
           <div class="d-flex flex-column align-items-center">
             <li style="display: inline-block;"><a href="{% url 'employer:employer_home' %}" class="btn btn-primary">Home</a></li>
           </div>
-          <li style="display: inline-block; margin-left: 1300px;"><a href="{% url 'employer:job_list' %}" class="btn btn-secondary">My Positions</a></li>
-          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'employer:job_post' %}" class="btn btn-secondary">Post a Position</a></li>
-          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'employer:employer_profile'  %}" class="btn btn-secondary">Profile</a></li>
+          <li style="display: inline-block; margin-left: 1300px;"><a href="{% url 'employer:job_list' %}" class="btn btn-secondary">Job Board</a></li>
           <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'employer:user_pipeline'  %}" class="btn btn-secondary">User Pipeline</a></li>
+          <li style="display: inline-block; margin-left: 10px;"><a href="{% url 'employer:employer_profile'  %}" class="btn btn-success">Profile</a></li>
         </ul>
       </nav>
     </header>
