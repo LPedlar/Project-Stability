@@ -1,6 +1,4 @@
-{% extends 'ProjectStability/base.html' %}
-
-{% block content %}
+{% extends 'ProjectStability/base.html' %} {% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +24,11 @@
 
 <header>Return to Home</header>
 <a href="{% url 'home' %}"><button>Home</button></a>
-    <h1>Employer Sign In</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign In</button>
-    </form>
-
-    <p>Don't have an account?</p>
-  <a href="{% url 'employer:employer_signup' %}"><button>Sign up</button></a>
+<h1>Employer Sign In</h1>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Sign In</button>
+</form>
+<p>Don't have an account?</p>
+<a href="{% url 'employer:employer_signup' %}"><button>Sign up</button></a>
 {% endblock %}

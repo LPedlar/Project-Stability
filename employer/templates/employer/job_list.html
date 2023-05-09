@@ -1,59 +1,53 @@
-{% extends 'employer/employer_base.html' %}
+{% extends 'employer/employer_base.html' %} {% block content %} {# Adding
+Bootstrap #} {% comment %} You should only include either the CSS or the JS CDN
+link in your base template, but I'm including it here for the sake of
+completeness. {% endcomment %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-{% block content %}
+{% if request.user.CompanyName %}
+<h1>Job Listings for {{ request.user.CompanyName }}</h1>
 
-  {# Adding Bootstrap #}
-  {% comment %}
-  You should only include either the CSS or the JS CDN link in your base template,
-  but I'm including it here for the sake of completeness.
-  {% endcomment %}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-  {% if request.user.CompanyName %}
-    <h1>Job Listings for {{ request.user.CompanyName }}</h1>
-
-    {% if jobs %}
-      <div class="row mx-5 my-5">
-        {% for job in jobs %}
-          {% if job.EmployerID == request.user %}
-            <div class="col-6 col-lg-6 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between">
-                    <h2 class="card-title">{{ job.JobTitle }}</h2>
-                    <a href="{% url 'employer:job_detail' job_id=job.JobID %}" class="btn btn-secondary">Position Details</a>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p class="card-text">{{ job.JobDescription }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p class="card-text">Salary: {{ job.Salary }}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p class="card-text">Location: {{ job.Location }}</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
+{% if jobs %}
+<div class="row mx-5 my-5">
+  {% for job in jobs %} {% if job.EmployerID == request.user %}
+  <div class="col-6 col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h2 class="card-title">{{ job.JobTitle }}</h2>
+          <a
+            href="{% url 'employer:job_detail' job_id=job.JobID %}"
+            class="btn btn-secondary"
+            >Position Details</a
+          >
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="card-text">{{ job.JobDescription }}</p>
+          </div>
+          <div class="col-md-6">
+            <p class="card-text">Salary: {{ job.Salary }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="card-text">Location: {{ job.Location }}</p>
+          </div>
+          <div class="col-md-6">
+            <p class="card-text">Date Posted: {{ job.DatePosted }}</p>
+          </div>
+        </div>
       </div>
-    {% else %}
-      <p>No jobs found.</p>
-    {% endif %}
-
-  {% else %}
-    <p>You must be logged in as an employer to view job listings.</p>
-  {% endif %}
-
-{% endblock %}
-
-{% block title %}Job List{% endblock %}
+    </div>
+  </div>
+  {% endif %} {% endfor %}
+</div>
+{% else %}
+<p>No jobs found.</p>
+{% endif %} {% else %}
+<p>You must be logged in as an employer to view job listings.</p>
+{% endif %} {% endblock %} {% block title %}Job List{% endblock %}
